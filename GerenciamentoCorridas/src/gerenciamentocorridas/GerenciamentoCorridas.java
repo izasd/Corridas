@@ -10,7 +10,7 @@ public class GerenciamentoCorridas extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLTelaPrincipal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLHome.fxml"));
         
         Scene scene = new Scene(root);
         

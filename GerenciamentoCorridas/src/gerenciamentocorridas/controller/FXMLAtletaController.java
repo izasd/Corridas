@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,22 +21,12 @@ import javafx.scene.control.TextField;
  *
  * @author Henrique Machado
  */
-public class FXMLAtletasController implements Initializable {
+public class FXMLAtletaController implements Initializable {
 
     @FXML
     private TextField txtNome;
     @FXML
-    private TextField txtIdade;
-    @FXML
-    private ComboBox<?> cbGenero;
-    @FXML
     private TextField txtPais;
-    @FXML
-    private TextField txtMedalhas;
-    @FXML
-    private TableView<?> tabelaAtletas;
-    @FXML
-    private TableColumn<?, ?> colId;
     @FXML
     private TableColumn<?, ?> colNome;
     @FXML
@@ -45,7 +36,13 @@ public class FXMLAtletasController implements Initializable {
     @FXML
     private TableColumn<?, ?> colPais;
     @FXML
-    private TableColumn<?, ?> colMedalhas;
+    private TableView<?> tableAtletas;
+    @FXML
+    private Button btnInserir;
+    @FXML
+    private Button btnEditar;
+    @FXML
+    private Button btnExcluir;
 
     /**
      * Initializes the controller class.
@@ -53,22 +50,5 @@ public class FXMLAtletasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
-    @FXML
-    private void onInserir(ActionEvent event) {
-    }
-
-    @FXML
-    private void onAlterar(ActionEvent event) {
-    }
-
-    @FXML
-    private void onExcluir(ActionEvent event) {
-    }
-
-    @FXML
-    private void onLimpar(ActionEvent event) {
-    }
-    
+    }       
 }

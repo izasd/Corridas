@@ -29,13 +29,12 @@
                         <MenuItem text="Corridas" />
                     </items>
                 </Menu>
-                <Menu text="Processos">
+                <Menu text="Processo">
                     <items>
-                        <MenuItem text="Inscrições" />
                         <MenuItem text="Resultados" />
                     </items>
                 </Menu>
-                <Menu text="Relatórios">
+                <Menu text="Relatório">
                     <items>
                         <MenuItem text="Tabelas" />
                         <MenuItem text="Gráficos" />
@@ -56,8 +55,8 @@
                          <children>
                              <TableView fx:id="tableAtletas" prefHeight="643.0" prefWidth="581.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
-                                     <TableColumn fx:id="colNome" prefWidth="259.33330285549164" text="Nome" />
-                                     <TableColumn fx:id="colPais" prefWidth="162.6666259765625" text="País" />
+                                     <TableColumn fx:id="colNome" prefWidth="240.0" text="Nome" />
+                                     <TableColumn fx:id="colPais" prefWidth="182.0" text="País" />
                                      <TableColumn fx:id="colGenero" prefWidth="88.666748046875" text="Gênero" />
                                      <TableColumn fx:id="colIdade" prefWidth="69.33328247070312" text="Idade" />
                                  </columns>
@@ -65,7 +64,7 @@
                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                         </columnResizePolicy>
                              </TableView>
-                     <Button layoutX="422.0" layoutY="651.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="153.0" text="Limpar seleção" />
+                     <Button disable="true" layoutX="422.0" layoutY="651.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="153.0" text="Limpar seleção" />
                          </children>
                      </AnchorPane>
                      <!-- Formulário de Cadastro -->
@@ -133,8 +132,8 @@
                              <HBox layoutX="190.0" layoutY="539.0" spacing="20">
                                  <children>
                                      <Button fx:id="btnInserir" prefWidth="100" text="Inserir" />
-                                     <Button fx:id="btnEditar" prefWidth="100" text="Editar" />
-                                     <Button fx:id="btnExcluir" prefWidth="100" text="Excluir" />
+                                     <Button fx:id="btnEditar" disable="true" prefWidth="100" text="Editar" />
+                                     <Button fx:id="btnExcluir" disable="true" prefWidth="100" text="Excluir" />
                                  </children>
                              </HBox>
                      <Button layoutX="483.0" layoutY="467.0" mnemonicParsing="false" text="Alterar medalhas" />

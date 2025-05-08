@@ -49,21 +49,22 @@
             <children>
 
                  <!-- Parte Inferior com formulário e tabela lado a lado -->
-                 <SplitPane dividerPositions="0.45746346555323586" orientation="HORIZONTAL" prefHeight="694.6666666666666" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                 <SplitPane dividerPositions="0.3411580594679186" orientation="HORIZONTAL" prefHeight="694.6666666666666" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
                      <!-- Tabela de Atletas -->
                      <AnchorPane prefHeight="667.0" prefWidth="581.0" style="-fx-padding: 0;">
                          <children>
                              <TableView fx:id="tableAtletas" prefHeight="643.0" prefWidth="581.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
-                                     <TableColumn fx:id="colNome" prefWidth="259.33330285549164" text="Edição" />
-                                     <TableColumn fx:id="colPais" prefWidth="162.6666259765625" text="País" />
+                                     <TableColumn fx:id="colNome" prefWidth="171.0" text="Edição" />
+                           <TableColumn fx:id="colPais1" prefWidth="146.0" text="Categoria" />
+                           <TableColumn fx:id="colPais2" prefWidth="150.0" text="Distância" />
                                  </columns>
                         <columnResizePolicy>
                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                         </columnResizePolicy>
                              </TableView>
-                     <Button layoutX="422.0" layoutY="651.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="153.0" text="Limpar seleção" />
+                     <Button layoutX="275.0" layoutY="651.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="153.0" text="Limpar seleção" />
                          </children>
                      </AnchorPane>
                      <!-- Formulário de Cadastro -->
@@ -73,7 +74,7 @@
                         <children>
                            <VBox prefHeight="59.0" prefWidth="459.0">
                               <children>
-                                           <Label text="Nome:" />
+                                           <Label text="Edição" />
                                            <TextField fx:id="txtNome" />
                               </children>
                            </VBox>
@@ -135,7 +136,6 @@
                                      <Button fx:id="btnExcluir" prefWidth="100" text="Excluir" />
                                  </children>
                              </HBox>
-                     <Button layoutX="483.0" layoutY="467.0" mnemonicParsing="false" text="Alterar medalhas" />
                          </children>
                      </AnchorPane>
                  </SplitPane>

@@ -27,13 +27,12 @@
                   <MenuItem mnemonicParsing="false" text="Corridas" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Processos">
+          <Menu mnemonicParsing="false" text="Processo">
             <items>
-              <MenuItem mnemonicParsing="false" text="Incrições" />
                   <MenuItem mnemonicParsing="false" text="Resultados" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Relatórios">
+            <Menu mnemonicParsing="false" text="Relatório">
                <items>
                   <MenuItem mnemonicParsing="false" text="Tabelas" />
                   <MenuItem mnemonicParsing="false" text="Gráficos" />

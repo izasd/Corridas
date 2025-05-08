@@ -3,7 +3,7 @@ Gerenciamento de Corridas Olímpicas
 Atleta: nome, idade, gênero, país, lista de medalhas
 Corrida: edição, local, categoria, gênero, distância, atletas, quantidade máxima de corredores, quantidade mínima de corredores
 Resultado da Corrida: atleta, corrida, pódio, tempo
-medalha: tipo
+Medalha: tipo
 
 Processos: Inscrição da corrida, resultado da corrida
 

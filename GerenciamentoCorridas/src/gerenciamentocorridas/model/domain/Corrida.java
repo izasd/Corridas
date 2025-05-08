@@ -1,3 +1,5 @@
+//Aluno: Izabelli
+
 package gerenciamentocorridas.model.domain;
 
 public class Corrida {

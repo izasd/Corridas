@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gerenciamentocorridas.controller.FXMLAtletasController">
 
@@ -65,7 +66,10 @@
                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                         </columnResizePolicy>
                              </TableView>
-                     <Button layoutX="422.0" layoutY="651.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="153.0" text="Limpar seleção" />
+                     <Button disable="true" layoutX="422.0" layoutY="651.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="153.0" style="-fx-background-color: orange;" text="Limpar seleção">
+                        <font>
+                           <Font name="System Bold" size="12.0" />
+                        </font></Button>
                          </children>
                      </AnchorPane>
                      <!-- Formulário de Cadastro -->
@@ -83,25 +87,25 @@
                               <children>
                                  <HBox prefHeight="24.0" prefWidth="459.0" spacing="20.0">
                                     <children>
-                                       <VBox prefHeight="43.0" prefWidth="271.0">
+                                       <VBox prefHeight="43.0" prefWidth="222.0">
                                           <children>
                         
                                                        <Label text="País:" />
-                                                       <TextField fx:id="txtPais" prefHeight="25.0" prefWidth="229.0" />
+                                                       <TextField fx:id="txtPais" prefHeight="25.0" prefWidth="247.0" />
                                           </children>
                                        </VBox>
-                                       <VBox prefHeight="43.0" prefWidth="115.0">
+                                       <VBox prefHeight="43.0" prefWidth="147.0">
                                           <children>
                         
                                                        <Label text="Gênero:" />
-                                             <ChoiceBox prefHeight="25.0" prefWidth="103.0" />
+                                             <ChoiceBox prefHeight="25.0" prefWidth="153.0" />
                                           </children>
                                        </VBox>
                                        <VBox prefHeight="43.0" prefWidth="67.0">
                                           <children>
                         
                                                        <Label text="Idade:" />
-                                             <Spinner prefHeight="25.0" prefWidth="55.0" />
+                                             <Spinner prefHeight="25.0" prefWidth="63.0" />
                                           </children>
                                        </VBox>
                                     </children>
@@ -115,7 +119,7 @@
                               <children>
             
                                                  <Label text="Medalhas:" />
-                                 <TableView prefHeight="239.0" prefWidth="459.0">
+                                 <TableView prefHeight="233.0" prefWidth="459.0">
                                    <columns>
                                      <TableColumn prefWidth="75.0" text="Bronze" />
                                      <TableColumn prefWidth="75.0" text="Prata" />
@@ -132,9 +136,18 @@
 
                              <HBox layoutX="190.0" layoutY="539.0" spacing="20">
                                  <children>
-                                     <Button fx:id="btnInserir" prefWidth="100" text="Inserir" />
-                                     <Button fx:id="btnEditar" prefWidth="100" text="Editar" />
-                                     <Button fx:id="btnExcluir" prefWidth="100" text="Excluir" />
+                                     <Button fx:id="btnInserir" prefWidth="100" style="-fx-background-color: green;" text="Inserir">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font></Button>
+                                     <Button fx:id="btnEditar" disable="true" prefWidth="100" text="Editar">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font></Button>
+                                     <Button fx:id="btnExcluir" disable="true" prefWidth="100" style="-fx-background-color: red;" text="Excluir">
+                              <font>
+                                 <Font name="System Bold" size="12.0" />
+                              </font></Button>
                                  </children>
                              </HBox>
                      <Button layoutX="483.0" layoutY="467.0" mnemonicParsing="false" text="Alterar medalhas" />

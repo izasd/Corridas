@@ -1,10 +1,12 @@
+//Aluno: Henrique
+
 package gerenciamentocorridas.model.domain;
 
 public class Atleta {
     private int id;
     private String nome;
     private int idade;
-    private char genero; // 'M' ou 'F'
+    private char genero;
     private String pais;
 
     public Atleta() {}

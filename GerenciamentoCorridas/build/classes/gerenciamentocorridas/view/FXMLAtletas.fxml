@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="gerenciamentocorridas.controller.FXMLAtletasController" prefHeight="600.0" prefWidth="800.0">
+    <children>
+        <VBox spacing="10" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="10.0">
+            <children>
+                <Label text="Gerenciamento de Atletas">
+                    <font>
+                        <Font size="24" />
+                    </font>
+                </Label>
+
+                <!-- Formulário -->
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" />
+                        <ColumnConstraints hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="NEVER" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Nome:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtNome" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Idade:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtIdade" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Gênero:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cbGenero" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Masculino" />
+                                    <String fx:value="Feminino" />
+                                    <String fx:value="Outro" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+
+                        <Label text="País:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtPais" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                        <Label text="Medalhas:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                        <TextField fx:id="txtMedalhas" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                    </children>
+                </GridPane>
+
+                <!-- Botões -->
+                <HBox spacing="10">
+                    <children>
+                        <Button text="Inserir" onAction="#onInserir" />
+                        <Button text="Alterar" onAction="#onAlterar" />
+                        <Button text="Excluir" onAction="#onExcluir" />
+                        <Button text="Limpar" onAction="#onLimpar" />
+                    </children>
+                </HBox>
+
+                <!-- Tabela -->
+                <TableView fx:id="tabelaAtletas" prefHeight="300.0">
+                    <columns>
+                        <TableColumn text="ID" fx:id="colId" prefWidth="40"/>
+                        <TableColumn text="Nome" fx:id="colNome" prefWidth="150"/>
+                        <TableColumn text="Idade" fx:id="colIdade" prefWidth="60"/>
+                        <TableColumn text="Gênero" fx:id="colGenero" prefWidth="100"/>
+                        <TableColumn text="País" fx:id="colPais" prefWidth="100"/>
+                        <TableColumn text="Medalhas" fx:id="colMedalhas" prefWidth="80"/>
+                    </columns>
+                </TableView>
+            </children>
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

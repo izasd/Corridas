@@ -118,16 +118,6 @@
                               <children>
             
                                                  <Label text="Medalhas:" />
-                                 <TableView prefHeight="233.0" prefWidth="459.0">
-                                   <columns>
-                                     <TableColumn prefWidth="75.0" text="Bronze" />
-                                     <TableColumn prefWidth="75.0" text="Prata" />
-                                       <TableColumn prefWidth="75.0" text="Ouro" />
-                                   </columns>
-                                    <columnResizePolicy>
-                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                    </columnResizePolicy>
-                                 </TableView>
                               </children>
                            </VBox>
                         </children>
@@ -149,7 +139,6 @@
                               </font></Button>
                                  </children>
                              </HBox>
-                     <Button layoutX="483.0" layoutY="467.0" mnemonicParsing="false" text="Alterar medalhas" />
                          </children>
                      </AnchorPane>
                  </SplitPane>

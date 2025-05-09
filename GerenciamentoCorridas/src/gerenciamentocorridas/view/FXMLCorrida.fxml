@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -33,13 +34,12 @@
                         <MenuItem text="Corridas" />
                     </items>
                 </Menu>
-                <Menu text="Processos">
+                <Menu text="Processo">
                     <items>
-                        <MenuItem text="Inscrições" />
                         <MenuItem text="Resultados" />
                     </items>
                 </Menu>
-                <Menu text="Relatórios">
+                <Menu text="Relatório">
                     <items>
                         <MenuItem text="Tabelas" />
                         <MenuItem text="Gráficos" />

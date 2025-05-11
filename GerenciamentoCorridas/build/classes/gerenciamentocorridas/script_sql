@@ -1,23 +1,13 @@
--- Tabela Medalha
-CREATE TABLE Medalha (
-    id SERIAL PRIMARY KEY,
-    tipo VARCHAR(50) NOT NULL
-);
-
 -- Tabela Atleta
-CREATE TABLE Atleta (
+CREATE TABLE atleta (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    idade INT NOT NULL,
-    genero CHAR(1) CHECK (genero IN ('M', 'F')) NOT NULL,
-    pais VARCHAR(100) NOT NULL
-);
-
--- Associação entre Atleta e Medalha (Relacionamento Muitos-para-Muitos)
-CREATE TABLE Atleta_Medalha (
-    atleta_id INT REFERENCES Atleta(id) ON DELETE CASCADE,
-    medalha_id INT REFERENCES Medalha(id) ON DELETE CASCADE,
-    PRIMARY KEY (atleta_id, medalha_id)
+    idade INTEGER NOT NULL,
+    genero VARCHAR(10) NOT NULL,
+    pais VARCHAR(50) NOT NULL,
+    bronze INTEGER DEFAULT 0,
+    prata INTEGER DEFAULT 0,
+    ouro INTEGER DEFAULT 0
 );
 
 -- Tabela Corrida

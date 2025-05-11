@@ -6,7 +6,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -52,25 +51,6 @@
                         </TableView>
                      </children>
                   </VBox>
-                  <HBox layoutX="190.0" layoutY="539.0" spacing="20">
-                     <children>
-                        <Button fx:id="btnInserir" prefWidth="100" style="-fx-background-color: green;" text="Inserir">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnEditar" disable="true" prefWidth="100" text="Editar">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="btnExcluir" disable="true" prefWidth="100" style="-fx-background-color: red;" text="Excluir">
-                           <font>
-                              <Font name="System Bold" size="12.0" />
-                           </font>
-                        </Button>
-                     </children>
-                  </HBox>
                </children>
             </AnchorPane>
          </items>

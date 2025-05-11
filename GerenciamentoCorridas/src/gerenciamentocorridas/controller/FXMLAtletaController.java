@@ -1,54 +1,165 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gerenciamentocorridas.controller;
 
+import gerenciamentocorridas.model.dao.AtletaDAO;
+import gerenciamentocorridas.model.database.Database;
+import gerenciamentocorridas.model.database.DatabaseFactory;
+import gerenciamentocorridas.model.domain.Atleta;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-/**
- * FXML Controller class
- *
- * @author Henrique Machado
- */
 public class FXMLAtletaController implements Initializable {
-
+    @FXML
+    private TableView<Atleta> tableAtletas;
+    @FXML
+    private TableColumn<Atleta, String> colNome;
+    @FXML
+    private TableColumn<Atleta, String> colPais;
+    @FXML
+    private TableColumn<Atleta, String> colGenero;
+    @FXML
+    private TableColumn<Atleta, String> colIdade;
     @FXML
     private TextField txtNome;
     @FXML
     private TextField txtPais;
     @FXML
-    private TableColumn<?, ?> colNome;
+    private ChoiceBox<String> choiceBGenero;
     @FXML
-    private TableColumn<?, ?> colIdade;
+    private Spinner<Integer> spnIdade;
     @FXML
-    private TableColumn<?, ?> colGenero;
+    private Spinner<Integer> spnBronze;
     @FXML
-    private TableColumn<?, ?> colPais;
+    private Spinner<Integer> spnPrata;
     @FXML
-    private TableView<?> tableAtletas;
-    @FXML
-    private Button btnInserir;
-    @FXML
-    private Button btnEditar;
-    @FXML
-    private Button btnExcluir;
+    private Spinner<Integer> spnOuro;
+    
+    private List<Atleta> listAtletas;
+    private ObservableList<Atleta> observableListAtletas;
 
-    /**
-     * Initializes the controller class.
-     */
+    private final Database database = DatabaseFactory.getDatabase("postgresql");
+    private final Connection connection = database.conectar();
+    private final AtletaDAO atletaDAO = new AtletaDAO();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }       
+        atletaDAO.setConnection(connection);
+        spnIdade.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 150));
+        spnBronze.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
+        spnPrata.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
+        spnOuro.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
+        choiceBGenero.getItems().addAll("Masculino", "Feminino", "Outro");
+        carregarTableViewAtletas();
+        selecionarItemTableViewAtletas(null);
+        tableAtletas.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> selecionarItemTableViewAtletas(newValue));
+    }
+
+    public void carregarTableViewAtletas() {
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
+        colGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
+        colIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
+
+        listAtletas = atletaDAO.listar();
+        observableListAtletas = FXCollections.observableArrayList(listAtletas);
+        tableAtletas.setItems(observableListAtletas);
+    }
+
+    public void selecionarItemTableViewAtletas(Atleta atleta) {
+        if (atleta != null) {
+            txtNome.setText(atleta.getNome());
+            spnIdade.getValueFactory().setValue(atleta.getIdade());
+            choiceBGenero.setValue(atleta.getGenero());
+            txtPais.setText(atleta.getPais());
+            spnBronze.getValueFactory().setValue(atleta.getBronze());
+            spnPrata.getValueFactory().setValue(atleta.getPrata());
+            spnOuro.getValueFactory().setValue(atleta.getOuro());
+        } else {
+            txtNome.setText("");
+            spnIdade.getValueFactory().setValue(0);
+            choiceBGenero.setValue(null);
+            txtPais.setText("");
+            spnBronze.getValueFactory().setValue(0);
+            spnPrata.getValueFactory().setValue(0);
+            spnOuro.getValueFactory().setValue(0);
+        }
+    }
+    
+    private void limparCampos() {
+        txtNome.clear();
+        spnIdade.getValueFactory().setValue(0);
+        choiceBGenero.setValue(null);
+        txtPais.clear();
+        spnBronze.getValueFactory().setValue(0);
+        spnPrata.getValueFactory().setValue(0);
+        spnOuro.getValueFactory().setValue(0);
+    }
+
+    @FXML
+    public void handleButtonInserir() throws IOException {
+        if (txtNome.getText().isEmpty() || choiceBGenero.getValue() == null || txtPais.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Preencha todos os campos obrigatórios!");
+            alert.show();
+            return;
+        }
+        Atleta atleta = new Atleta();
+        atleta.setNome(txtNome.getText());
+        atleta.setIdade(spnIdade.getValue());
+        atleta.setGenero(choiceBGenero.getValue());
+        atleta.setPais(txtPais.getText());
+        atleta.setBronze(spnBronze.getValue());
+        atleta.setPrata(spnPrata.getValue());
+        atleta.setOuro(spnOuro.getValue());
+        
+        if (atletaDAO.inserir(atleta)) {
+            carregarTableViewAtletas();
+            limparCampos();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Erro ao inserir atleta!");
+            alert.show();
+            }
+    }
+
+    @FXML
+    public void handleButtonAlterar() throws IOException {
+        Atleta atleta = tableAtletas.getSelectionModel().getSelectedItem();
+        if (atleta != null) {
+            atletaDAO.alterar(atleta);
+            carregarTableViewAtletas();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Por favor, escolha um atleta na tabela!");
+            alert.show();
+        }
+    }
+
+    @FXML
+    public void handleButtonExcluir() throws IOException {
+        Atleta atleta = tableAtletas.getSelectionModel().getSelectedItem();
+        if (atleta != null) {
+            atletaDAO.remover(atleta);
+            carregarTableViewAtletas();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Por favor, escolha um atleta na tabela!");
+            alert.show();
+        }
+    }
 }

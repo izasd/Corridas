@@ -101,19 +101,19 @@ public class Corrida {
         this.qtdAtletas = qtdAtletas;
     }
 
-    public int getQtdMin() {
+    public int getQtdMinCorr() {
         return qtdMinCorr;
     }
 
-    public void setQtdMin(int qtdMin) {
+    public void setQtdMinCorr(int qtdMin) {
         this.qtdMinCorr = qtdMinCorr;
     }
 
-    public int getQtdMax() {
+    public int getQtdMaxCorr() {
         return qtdMaxCorr;
     }
 
-    public void setQtdMax(int qtdMax) {
+    public void setQtdMaxCorr(int qtdMax) {
         this.qtdMaxCorr = qtdMaxCorr;
     }
     

@@ -34,8 +34,8 @@ public class CorridaDAO {
             stmt.setDouble(4, corrida.getDistancia());
             stmt.setString(5, corrida.getGenero());
             stmt.setInt(6, corrida.getQtdAtletas());
-            stmt.setInt(7, corrida.getQtdMin());
-            stmt.setInt(8, corrida.getQtdMax());
+            stmt.setInt(7, corrida.getQtdMinCorr());
+            stmt.setInt(8, corrida.getQtdMaxCorr());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
@@ -75,8 +75,8 @@ public class CorridaDAO {
                 corrida.setCategoria(resultado.getString("categoria"));
                 corrida.setDistancia(resultado.getDouble("distancia"));
                 corrida.setGenero(resultado.getString("genero"));
-                corrida.setQtdMin(resultado.getInt("qtd_min_corr"));
-                corrida.setQtdMax(resultado.getInt("qtd_max_corr"));
+                corrida.setQtdMinCorr(resultado.getInt("qtd_min_corr"));
+                corrida.setQtdMaxCorr(resultado.getInt("qtd_max_corr"));
 
                 String sqlAtletas = "SELECT a.* FROM Atleta a " +
                     "INNER JOIN Corrida_Atleta ca ON a.id = ca.atleta_id " +
@@ -118,8 +118,8 @@ public class CorridaDAO {
             stmt.setDouble(4, corrida.getDistancia());
             stmt.setString(5, corrida.getGenero());
             stmt.setInt(6, corrida.getQtdAtletas());
-            stmt.setInt(7, corrida.getQtdMin());
-            stmt.setInt(8, corrida.getQtdMax());
+            stmt.setInt(7, corrida.getQtdMinCorr());
+            stmt.setInt(8, corrida.getQtdMaxCorr());
             stmt.setInt(9, corrida.getId());
             stmt.executeUpdate();
  

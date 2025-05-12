@@ -71,7 +71,7 @@ public class FXMLAtletaController implements Initializable {
         spnBronze.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
         spnPrata.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
         spnOuro.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
-        choiceBGenero.getItems().addAll("Masculino", "Feminino", "Outro");
+        choiceBGenero.getItems().addAll("M", "F");
         carregarTableViewAtletas();
         selecionarItemTableViewAtletas(null);
         tableAtletas.getSelectionModel().selectedItemProperty().addListener(

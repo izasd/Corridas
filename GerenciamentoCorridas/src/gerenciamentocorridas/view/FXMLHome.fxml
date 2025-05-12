@@ -34,8 +34,10 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Relatório">
                <items>
-                  <MenuItem fx:id="menuTabelas" mnemonicParsing="false" onAction="#handleMenuItemTabelas" text="Tabelas" />
-                  <MenuItem fx:id="menuGraficos" mnemonicParsing="false" onAction="#handleMenuItemGraficos" text="Gráficos" />
+                  <MenuItem fx:id="menuTabelas" mnemonicParsing="false" onAction="#handleMenuItemTabelas" text="Listar atletas por país" />
+                  <MenuItem fx:id="menuGraficos" mnemonicParsing="false" onAction="#handleMenuItemGraficos" text="Histórico de participações" />
+                  <MenuItem fx:id="menuTabelas1" mnemonicParsing="false" onAction="#handleMenuItemTabelas" text="Número de participantes por edição" />
+                  <MenuItem fx:id="menuTabelas2" mnemonicParsing="false" onAction="#handleMenuItemTabelas" text="Medalhas por atleta" />
                </items>
             </Menu>
         </menus>

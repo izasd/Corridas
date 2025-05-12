@@ -4,53 +4,21 @@ import gerenciamentocorridas.model.dao.AtletaDAO;
 import gerenciamentocorridas.model.dao.CorridaDAO;
 import gerenciamentocorridas.model.database.Database;
 import gerenciamentocorridas.model.database.DatabaseFactory;
-import gerenciamentocorridas.model.domain.Atleta;
-import gerenciamentocorridas.model.domain.Corrida;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Connection;
-import java.util.List;
-import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import gerenciamentocorridas.model.domain.Atleta;
+import gerenciamentocorridas.model.domain.Corrida;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
 
-public class FXMLCorridaController implements Initializable {
-    @FXML
-    private TableView<Corrida> tableCorridas;
-    @FXML
-    private TableColumn<Corrida, String> colEdicao;
-    @FXML
-    private TableColumn<Corrida, String> colPaisCorrida;
-    @FXML
-    private TableColumn<Corrida, String> colCategoria;
-    @FXML
-    private TableColumn<Corrida, String> colDistancia;
-    @FXML
-    private TableColumn<Corrida, String> colGeneroCorrida;
-    @FXML
-    private TableColumn<Corrida, String> colNAtletas;
-    @FXML
-    private TableView<Atleta> tableAtletas;
-    @FXML
-    private TableColumn<Atleta, String> colNome;
-    @FXML
-    private TableColumn<Atleta, String> colPais;
-    @FXML
-    private TableColumn<Atleta, String> colGenero;
-    @FXML
-    private TableColumn<Atleta, String> colIdade;
+public class FXMLCorridaController {
+
     @FXML
     private TextField txtEdicao;
     @FXML
@@ -66,178 +34,181 @@ public class FXMLCorridaController implements Initializable {
     @FXML
     private Spinner<Integer> spnQtdMax;
     @FXML
-    private Button btnLimpar;
+    private TableView<Corrida> tableCorridas;
     @FXML
-    private Button btnAdicionar;
+    private TableColumn<Corrida, String> columnEdicao;
     @FXML
-    private Button btnRemover;
+    private TableColumn<Corrida, String> columnPais;
     @FXML
-    private Button btnInserir;
+    private TableView<Atleta> tableAtletas;
     @FXML
-    private Button btnAlterar;
+    private TableColumn<Atleta, String> columnNome;
     @FXML
-    private Button btnExcluir;
-    
+    private TableColumn<Atleta, Integer> columnIdade;
+    @FXML
+    private ComboBox<Atleta> comboBoxAtletas;
+    @FXML
+    private TableView<Atleta> tableViewAtletas;
+    @FXML
+    private Button btnAdicionarAtleta;
+    @FXML
+    private Button btnRemoverAtleta;
+
     private List<Corrida> listCorridas;
     private ObservableList<Corrida> observableListCorridas;
     private List<Atleta> listAtletas;
     private ObservableList<Atleta> observableListAtletas;
-
-    private final Database database = DatabaseFactory.getDatabase("postgresql");
-    private final Connection connection = database.conectar();
     private final CorridaDAO corridaDAO = new CorridaDAO();
     private final AtletaDAO atletaDAO = new AtletaDAO();
+    private ObservableList<Atleta> listaAtletasDisponiveis = FXCollections.observableArrayList();
+    private ObservableList<Atleta> listaAtletasCorrida = FXCollections.observableArrayList();
+    
+    private final Database database = DatabaseFactory.getDatabase("postgresql");
+    private final Connection connection = database.conectar();
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        corridaDAO.setConnection(connection);
-        atletaDAO.setConnection(connection);
-        spnQtdMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
-        spnQtdMax.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
-        choiceBGenero.getItems().addAll("Masculino", "Feminino", "Outro");
+    @FXML
+    public void initialize() {
         carregarTableViewCorridas();
-        selecionarItemTableViewCorridas(null);
-        selecionarItemTableViewAtletas(null);
+        carregarTableViewAtletas();
+        carregarAtletasDisponiveis();
+        configurarTableView();
+
+        tableAtletas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         tableCorridas.getSelectionModel().selectedItemProperty().addListener(
-            (observable, oldValue, newValue) -> selecionarItemTableViewCorridas(newValue));
-        tableAtletas.getSelectionModel().selectedItemProperty().addListener(
-            (observable, oldValue, newValue) -> selecionarItemTableViewAtletas(newValue));
+                (observable, oldValue, newValue) -> selecionarItemTableViewCorridas(newValue));
+    }
+
+    public void carregarTableViewCorridas() {
+        columnEdicao.setCellValueFactory(new PropertyValueFactory<>("edicao"));
+        columnPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
+
+        listCorridas = corridaDAO.listar();
+        observableListCorridas = FXCollections.observableArrayList(listCorridas);
+        tableCorridas.setItems(observableListCorridas);
     }
 
     public void carregarTableViewAtletas() {
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
-        colGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
-        colIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
-        listAtletas = atletaDAO.listar();
-        observableListAtletas = FXCollections.observableArrayList(listAtletas);
-        tableAtletas.setItems(observableListAtletas);
-    }
-    
-    public void carregarTableViewCorridas() {
-        colEdicao.setCellValueFactory(new PropertyValueFactory<>("edicao"));
-        colPaisCorrida.setCellValueFactory(new PropertyValueFactory<>("local"));
-        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        colDistancia.setCellValueFactory(new PropertyValueFactory<>("distancia"));
-        colGeneroCorrida.setCellValueFactory(new PropertyValueFactory<>("genero"));
-        colNAtletas.setCellValueFactory(new PropertyValueFactory<>("qtdAtletas"));
+        columnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        columnIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
+
         listAtletas = atletaDAO.listar();
         observableListAtletas = FXCollections.observableArrayList(listAtletas);
         tableAtletas.setItems(observableListAtletas);
     }
 
-    public void selecionarItemTableViewAtletas(Atleta atleta) {
-        if (atleta != null) {
-            btnRemover.setDisable(false);
-        } else {
-            btnRemover.setDisable(true);
-        }
+    private void carregarAtletasDisponiveis() {
+        atletaDAO.setConnection(connection);
+        List<Atleta> atletas = atletaDAO.listar();
+        listaAtletasDisponiveis.setAll(atletas);
+        comboBoxAtletas.setItems(listaAtletasDisponiveis);
     }
-    
+
+    private void configurarTableView() {
+        tableViewAtletas.setItems(listaAtletasCorrida);
+    }
+
     public void selecionarItemTableViewCorridas(Corrida corrida) {
         if (corrida != null) {
             txtEdicao.setText(corrida.getEdicao());
             txtPais.setText(corrida.getPais());
             comboBCategoria.setValue(corrida.getCategoria());
-            comboBDistancia.setValue(corrida.getDistancia());
+            comboBDistancia.setValue(String.valueOf(corrida.getDistancia()));
             choiceBGenero.setValue(corrida.getGenero());
-            btnLimpar.setDisable(false);
-            btnInserir.setDisable(true);
-            btnAlterar.setDisable(false);
-            btnExcluir.setDisable(false);
+            spnQtdMin.getValueFactory().setValue(corrida.getQtdMinCorr());
+            spnQtdMax.getValueFactory().setValue(corrida.getQtdMaxCorr());
+
         } else {
-            txtEdicao.setText("");
-            txtPais.setText("");
+            txtEdicao.clear();
+            txtPais.clear();
             comboBCategoria.setValue(null);
             comboBDistancia.setValue(null);
             choiceBGenero.setValue(null);
-            btnLimpar.setDisable(true);
-            btnInserir.setDisable(false);
-            btnAlterar.setDisable(true);
-            btnExcluir.setDisable(true);
+            spnQtdMin.getValueFactory().setValue(0);
+            spnQtdMax.getValueFactory().setValue(0);
         }
     }
-    
-    public void handleButtonLimpar() throws IOException {
+
+    @FXML
+    public void handleButtonLimpar() {
         selecionarItemTableViewCorridas(null);
-        selecionarItemTableViewAtletas(null);
     }
-    
-    public void handleButtonAdicionar() throws IOException {
-        //Adicionar Dialog AQUI
-    }
-    
-    public void handleButtonRemover() throws IOException {
-        Atleta atleta = tableAtletas.getSelectionModel().getSelectedItem();
-        if (atleta != null) {
-            corridaDAO.remover(atleta);
-            carregarTableViewAtletas();
-            selecionarItemTableViewAtletas(null);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Por favor, escolha um atleta na tabela!");
-            alert.show();
-        }
-    }
-    
+
     @FXML
     public void handleButtonInserir() throws IOException {
-        if (txtNome.getText().isEmpty() || choiceBGenero.getValue() == null || txtPais.getText().isEmpty()) {
+        if (txtEdicao.getText().isEmpty() || txtPais.getText().isEmpty()
+                || comboBCategoria.getValue() == null || comboBDistancia.getValue() == null
+                || choiceBGenero.getValue() == null) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Preencha todos os campos obrigatórios!");
             alert.show();
             return;
         }
-        Atleta atleta = new Atleta();
-        atleta.setNome(txtNome.getText());
-        atleta.setIdade(spnIdade.getValue());
-        atleta.setGenero(choiceBGenero.getValue());
-        atleta.setPais(txtPais.getText());
-        atleta.setBronze(spnBronze.getValue());
-        atleta.setPrata(spnPrata.getValue());
-        atleta.setOuro(spnOuro.getValue());
-        if (atletaDAO.inserir(atleta)) {
-            carregarTableViewAtletas();
-            selecionarItemTableViewAtletas(null);
+
+        Corrida corrida = new Corrida();
+        corrida.setEdicao(txtEdicao.getText());
+        corrida.setPais(txtPais.getText());
+        corrida.setCategoria(comboBCategoria.getValue());
+        corrida.setDistancia(Double.parseDouble(comboBDistancia.getValue()));
+        corrida.setGenero(choiceBGenero.getValue());
+        corrida.setQtdMinCorr(spnQtdMin.getValue());
+        corrida.setQtdMaxCorr(spnQtdMax.getValue());
+
+        List<Atleta> atletasSelecionados = tableAtletas.getSelectionModel().getSelectedItems();
+        corrida.setAtletas(atletasSelecionados);
+
+        if (corridaDAO.inserir(corrida)) {
+            carregarTableViewCorridas();
+            selecionarItemTableViewCorridas(null);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Erro ao inserir atleta!");
+            alert.setContentText("Erro ao inserir corrida!");
             alert.show();
-            }
+        }
     }
 
     @FXML
     public void handleButtonAlterar() throws IOException {
-        Atleta atleta = tableAtletas.getSelectionModel().getSelectedItem();
-        if (atleta != null) {
-            atleta.setNome(txtNome.getText());
-            atleta.setIdade(spnIdade.getValue());
-            atleta.setGenero(choiceBGenero.getValue());
-            atleta.setPais(txtPais.getText());
-            atleta.setBronze(spnBronze.getValue());
-            atleta.setPrata(spnPrata.getValue());
-            atleta.setOuro(spnOuro.getValue());
-            atletaDAO.alterar(atleta);
-            carregarTableViewAtletas();
-            selecionarItemTableViewAtletas(null);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Por favor, escolha um atleta na tabela!");
-            alert.show();
+        Corrida corrida = tableCorridas.getSelectionModel().getSelectedItem();
+        if (corrida != null) {
+            corrida.setEdicao(txtEdicao.getText());
+            corrida.setPais(txtPais.getText());
+            corrida.setCategoria(comboBCategoria.getValue());
+            corrida.setDistancia(Double.parseDouble(comboBDistancia.getValue()));
+            corrida.setGenero(choiceBGenero.getValue());
+            corrida.setQtdMinCorr(spnQtdMin.getValue());
+            corrida.setQtdMaxCorr(spnQtdMax.getValue());
+            corrida.setAtletas(tableAtletas.getSelectionModel().getSelectedItems());
+
+            corridaDAO.alterar(corrida);
+            carregarTableViewCorridas();
         }
     }
 
     @FXML
     public void handleButtonExcluir() throws IOException {
-        Atleta atleta = tableAtletas.getSelectionModel().getSelectedItem();
-        if (atleta != null) {
-            atletaDAO.remover(atleta);
-            carregarTableViewAtletas();
-            selecionarItemTableViewAtletas(null);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Por favor, escolha um atleta na tabela!");
-            alert.show();
+        Corrida corrida = tableCorridas.getSelectionModel().getSelectedItem();
+        if (corrida != null) {
+            corridaDAO.remover(corrida);
+            carregarTableViewCorridas();
         }
     }
+
+    @FXML
+    public void handleButtonAdicionarAtleta(ActionEvent event) {
+        Atleta selecionado = comboBoxAtletas.getValue();
+        if (selecionado != null && !listaAtletasCorrida.contains(selecionado)) {
+            listaAtletasCorrida.add(selecionado);
+        }
+    }
+
+    @FXML
+    public void handleButtonRemoverAtleta(ActionEvent event) {
+        Atleta selecionado = tableViewAtletas.getSelectionModel().getSelectedItem();
+        if (selecionado != null) {
+            listaAtletasCorrida.remove(selecionado);
+        }
+    }
+
 }

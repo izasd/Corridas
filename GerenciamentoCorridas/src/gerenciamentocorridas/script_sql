@@ -38,3 +38,52 @@ CREATE TABLE Resultado_Corrida (
     podio INT, -- 1 para ouro, 2 para prata, 3 para bronze, NULL se não ficou no pódio
     tempo INTERVAL NOT NULL -- Usamos INTERVAL para representar tempo no PostgreSQL
 );
+
+-- Inserts
+
+INSERT INTO atleta (nome, idade, genero, pais, bronze, prata, ouro) VALUES
+('João Silva', 25, 'M', 'Brasil', 1, 0, 2),
+('Maria Oliveira', 22, 'F', 'Portugal', 0, 1, 0),
+('Carlos Mendes', 28, 'M', 'Argentina', 0, 2, 1),
+('Ana Souza', 21, 'F', 'Brasil', 1, 1, 1),
+('Lucia Torres', 24, 'F', 'Espanha', 0, 0, 0),
+('Pedro López', 30, 'M', 'México', 2, 0, 0);
+
+INSERT INTO corrida (edicao, local, categoria, genero, distancia, qtd_atletas, qtd_max_corr, qtd_min_corr) VALUES
+('Corrida Primavera 2024', 'São Paulo', 'Profissional', 'M', 10.0, 3, 10, 2),
+('Corrida Verão 2024', 'Lisboa', 'Amador', 'F', 5.0, 3, 15, 2),
+('Corrida Elite 2025', 'Buenos Aires', 'Elite', 'M', 21.0, 2, 8, 1);
+
+-- Corrida 1 (Primavera 2024) - Masculina
+INSERT INTO corrida_atleta (corrida_id, atleta_id) VALUES
+(1, 1), -- João Silva
+(1, 3), -- Carlos Mendes
+(1, 6); -- Pedro López
+
+-- Corrida 2 (Verão 2024) - Feminina
+INSERT INTO corrida_atleta (corrida_id, atleta_id) VALUES
+(2, 2), -- Maria Oliveira
+(2, 4), -- Ana Souza
+(2, 5); -- Lucia Torres
+
+-- Corrida 3 (Elite 2025) - Masculina
+INSERT INTO corrida_atleta (corrida_id, atleta_id) VALUES
+(3, 1), -- João Silva
+(3, 3); -- Carlos Mendes
+
+-- Resultados da Corrida 1
+INSERT INTO resultado_corrida (atleta_id, corrida_id, podio, tempo) VALUES
+(1, 1, 1, '00:30:15'),
+(3, 1, 2, '00:31:20'),
+(6, 1, 3, '00:32:45');
+
+-- Resultados da Corrida 2
+INSERT INTO resultado_corrida (atleta_id, corrida_id, podio, tempo) VALUES
+(4, 2, 1, '00:18:00'),
+(2, 2, 2, '00:19:10'),
+(5, 2, NULL, '00:22:00');
+
+-- Resultados da Corrida 3
+INSERT INTO resultado_corrida (atleta_id, corrida_id, podio, tempo) VALUES
+(1, 3, 2, '01:12:00'),
+(3, 3, 1, '01:10:30');

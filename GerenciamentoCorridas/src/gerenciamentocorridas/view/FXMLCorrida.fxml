@@ -34,7 +34,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button fx:id="btnLimpar" disable="true" layoutX="427.0" layoutY="651.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="149.0" style="-fx-background-color: orange;" text="Limpar seleção">
+                  <Button fx:id="btnLimpar" disable="true" layoutX="427.0" layoutY="651.0" mnemonicParsing="false" onAction="#handleButtonLimpar" prefHeight="34.0" prefWidth="149.0" style="-fx-background-color: orange;" text="Limpar seleção">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -134,8 +134,8 @@
                               </HBox>
                               <HBox prefHeight="31.0" prefWidth="60.0">
                                  <children>
-                                    <Button fx:id="btnAdicionar" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: green;" text="+" />
-                                    <Button fx:id="btnRemover" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: red;" text="x" />
+                                    <Button fx:id="btnAdicionar" mnemonicParsing="false" onAction="#handleButtonAdicionar" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: green;" text="+" />
+                                    <Button fx:id="btnRemover" disable="true" mnemonicParsing="false" onAction="#handleButtonRemover" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: red;" text="x" />
                                  </children>
                               </HBox>
                            </children>
@@ -144,17 +144,17 @@
                   </VBox>
                   <HBox layoutX="190.0" layoutY="539.0" spacing="20">
                      <children>
-                        <Button fx:id="btnInserir" prefWidth="100" style="-fx-background-color: green;" text="Inserir">
+                        <Button fx:id="btnInserir" onAction="#handleButtonInserir" prefWidth="100" style="-fx-background-color: green;" text="Inserir">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnAlterar" disable="true" prefWidth="100" text="Alterar">
+                        <Button fx:id="btnAlterar" disable="true" onAction="#handleButtonAlterar" prefWidth="100" text="Alterar">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnExcluir" disable="true" prefWidth="100" style="-fx-background-color: red;" text="Excluir">
+                        <Button fx:id="btnExcluir" disable="true" onAction="#handleButtonExcluir" prefWidth="100" style="-fx-background-color: red;" text="Excluir">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>

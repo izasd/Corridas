@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -47,6 +48,14 @@ public class FXMLAtletaController implements Initializable {
     private Spinner<Integer> spnPrata;
     @FXML
     private Spinner<Integer> spnOuro;
+    @FXML
+    private Button btnLimpar;
+    @FXML
+    private Button btnInserir;
+    @FXML
+    private Button btnAlterar;
+    @FXML
+    private Button btnExcluir;
     
     private List<Atleta> listAtletas;
     private ObservableList<Atleta> observableListAtletas;
@@ -89,6 +98,10 @@ public class FXMLAtletaController implements Initializable {
             spnBronze.getValueFactory().setValue(atleta.getBronze());
             spnPrata.getValueFactory().setValue(atleta.getPrata());
             spnOuro.getValueFactory().setValue(atleta.getOuro());
+            btnLimpar.setDisable(false);
+            btnInserir.setDisable(true);
+            btnAlterar.setDisable(false);
+            btnExcluir.setDisable(false);
         } else {
             txtNome.setText("");
             spnIdade.getValueFactory().setValue(0);
@@ -97,17 +110,15 @@ public class FXMLAtletaController implements Initializable {
             spnBronze.getValueFactory().setValue(0);
             spnPrata.getValueFactory().setValue(0);
             spnOuro.getValueFactory().setValue(0);
+            btnLimpar.setDisable(true);
+            btnInserir.setDisable(false);
+            btnAlterar.setDisable(true);
+            btnExcluir.setDisable(true);
         }
     }
     
-    private void limparCampos() {
-        txtNome.clear();
-        spnIdade.getValueFactory().setValue(0);
-        choiceBGenero.setValue(null);
-        txtPais.clear();
-        spnBronze.getValueFactory().setValue(0);
-        spnPrata.getValueFactory().setValue(0);
-        spnOuro.getValueFactory().setValue(0);
+    public void handleButtonLimpar() throws IOException {
+        selecionarItemTableViewAtletas(null);
     }
 
     @FXML
@@ -126,10 +137,9 @@ public class FXMLAtletaController implements Initializable {
         atleta.setBronze(spnBronze.getValue());
         atleta.setPrata(spnPrata.getValue());
         atleta.setOuro(spnOuro.getValue());
-        
         if (atletaDAO.inserir(atleta)) {
             carregarTableViewAtletas();
-            limparCampos();
+            selecionarItemTableViewAtletas(null);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Erro ao inserir atleta!");
@@ -141,8 +151,16 @@ public class FXMLAtletaController implements Initializable {
     public void handleButtonAlterar() throws IOException {
         Atleta atleta = tableAtletas.getSelectionModel().getSelectedItem();
         if (atleta != null) {
+            atleta.setNome(txtNome.getText());
+            atleta.setIdade(spnIdade.getValue());
+            atleta.setGenero(choiceBGenero.getValue());
+            atleta.setPais(txtPais.getText());
+            atleta.setBronze(spnBronze.getValue());
+            atleta.setPrata(spnPrata.getValue());
+            atleta.setOuro(spnOuro.getValue());
             atletaDAO.alterar(atleta);
             carregarTableViewAtletas();
+            selecionarItemTableViewAtletas(null);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Por favor, escolha um atleta na tabela!");
@@ -156,6 +174,7 @@ public class FXMLAtletaController implements Initializable {
         if (atleta != null) {
             atletaDAO.remover(atleta);
             carregarTableViewAtletas();
+            selecionarItemTableViewAtletas(null);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Por favor, escolha um atleta na tabela!");

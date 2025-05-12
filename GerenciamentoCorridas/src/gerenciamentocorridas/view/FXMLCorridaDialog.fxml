@@ -18,7 +18,7 @@
       </Label>
       <VBox layoutX="39.0" layoutY="65.0" prefHeight="256.0" prefWidth="459.0">
          <children>
-            <Label text="Atleta Cadastrados:" />
+            <Label text="Atletas Cadastrados:" />
             <TableView prefHeight="239.0" prefWidth="459.0">
                <columns>
                   <TableColumn prefWidth="215.33326721191406" text="Nome" />

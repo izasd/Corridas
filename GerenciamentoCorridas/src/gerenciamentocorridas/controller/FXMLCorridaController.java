@@ -6,6 +6,7 @@ import gerenciamentocorridas.model.database.Database;
 import gerenciamentocorridas.model.database.DatabaseFactory;
 import gerenciamentocorridas.model.domain.Atleta;
 import gerenciamentocorridas.model.domain.Corrida;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
@@ -14,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -94,7 +96,6 @@ public class FXMLCorridaController implements Initializable {
         spnQtdMax.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
         choiceBGenero.getItems().addAll("Masculino", "Feminino", "Outro");
         carregarTableViewCorridas();
-        carregarTableViewAtletas();
         selecionarItemTableViewCorridas(null);
         selecionarItemTableViewAtletas(null);
         tableCorridas.getSelectionModel().selectedItemProperty().addListener(
@@ -112,28 +113,44 @@ public class FXMLCorridaController implements Initializable {
         observableListAtletas = FXCollections.observableArrayList(listAtletas);
         tableAtletas.setItems(observableListAtletas);
     }
+    
+    public void carregarTableViewCorridas() {
+        colEdicao.setCellValueFactory(new PropertyValueFactory<>("edicao"));
+        colPaisCorrida.setCellValueFactory(new PropertyValueFactory<>("local"));
+        colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
+        colDistancia.setCellValueFactory(new PropertyValueFactory<>("distancia"));
+        colGeneroCorrida.setCellValueFactory(new PropertyValueFactory<>("genero"));
+        colNAtletas.setCellValueFactory(new PropertyValueFactory<>("qtdAtletas"));
+        listAtletas = atletaDAO.listar();
+        observableListAtletas = FXCollections.observableArrayList(listAtletas);
+        tableAtletas.setItems(observableListAtletas);
+    }
 
     public void selecionarItemTableViewAtletas(Atleta atleta) {
         if (atleta != null) {
-            txtNome.setText(atleta.getNome());
-            spnIdade.getValueFactory().setValue(atleta.getIdade());
-            choiceBGenero.setValue(atleta.getGenero());
-            txtPais.setText(atleta.getPais());
-            spnBronze.getValueFactory().setValue(atleta.getBronze());
-            spnPrata.getValueFactory().setValue(atleta.getPrata());
-            spnOuro.getValueFactory().setValue(atleta.getOuro());
+            btnRemover.setDisable(false);
+        } else {
+            btnRemover.setDisable(true);
+        }
+    }
+    
+    public void selecionarItemTableViewCorridas(Corrida corrida) {
+        if (corrida != null) {
+            txtEdicao.setText(corrida.getEdicao());
+            txtPais.setText(corrida.getPais());
+            comboBCategoria.setValue(corrida.getCategoria());
+            comboBDistancia.setValue(corrida.getDistancia());
+            choiceBGenero.setValue(corrida.getGenero());
             btnLimpar.setDisable(false);
             btnInserir.setDisable(true);
             btnAlterar.setDisable(false);
             btnExcluir.setDisable(false);
         } else {
-            txtNome.setText("");
-            spnIdade.getValueFactory().setValue(0);
-            choiceBGenero.setValue(null);
+            txtEdicao.setText("");
             txtPais.setText("");
-            spnBronze.getValueFactory().setValue(0);
-            spnPrata.getValueFactory().setValue(0);
-            spnOuro.getValueFactory().setValue(0);
+            comboBCategoria.setValue(null);
+            comboBDistancia.setValue(null);
+            choiceBGenero.setValue(null);
             btnLimpar.setDisable(true);
             btnInserir.setDisable(false);
             btnAlterar.setDisable(true);
@@ -143,8 +160,26 @@ public class FXMLCorridaController implements Initializable {
     
     public void handleButtonLimpar() throws IOException {
         selecionarItemTableViewCorridas(null);
+        selecionarItemTableViewAtletas(null);
     }
-
+    
+    public void handleButtonAdicionar() throws IOException {
+        //Adicionar Dialog AQUI
+    }
+    
+    public void handleButtonRemover() throws IOException {
+        Atleta atleta = tableAtletas.getSelectionModel().getSelectedItem();
+        if (atleta != null) {
+            corridaDAO.remover(atleta);
+            carregarTableViewAtletas();
+            selecionarItemTableViewAtletas(null);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Por favor, escolha um atleta na tabela!");
+            alert.show();
+        }
+    }
+    
     @FXML
     public void handleButtonInserir() throws IOException {
         if (txtNome.getText().isEmpty() || choiceBGenero.getValue() == null || txtPais.getText().isEmpty()) {
@@ -204,10 +239,5 @@ public class FXMLCorridaController implements Initializable {
             alert.setContentText("Por favor, escolha um atleta na tabela!");
             alert.show();
         }
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

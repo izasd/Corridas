@@ -9,22 +9,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="345.0" prefWidth="537.0" style="-fx-padding: 0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="572.0" prefWidth="736.0" style="-fx-padding: 0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="157.0" layoutY="14.0" text="Inserção de Atleta">
+      <Label layoutX="256.0" layoutY="25.0" text="Inserção de Atleta">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <VBox layoutX="39.0" layoutY="65.0" prefHeight="256.0" prefWidth="459.0">
+      <VBox layoutX="54.0" layoutY="65.0" prefHeight="474.0" prefWidth="627.0">
          <children>
             <Label text="Atletas Cadastrados:" />
-            <TableView prefHeight="239.0" prefWidth="459.0">
+            <TableView prefHeight="433.0" prefWidth="503.0">
                <columns>
                   <TableColumn prefWidth="215.33326721191406" text="Nome" />
-                  <TableColumn prefWidth="132.0001220703125" text="País" />
-                  <TableColumn prefWidth="55.999969482421875" text="Gênero" />
-                  <TableColumn prefWidth="52.6666259765625" text="Idade" />
+                  <TableColumn prefWidth="129.333251953125" text="País" />
+                  <TableColumn prefWidth="89.9998779296875" text="Gênero" />
+                  <TableColumn prefWidth="52.666748046875" text="Idade" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -32,7 +32,7 @@
             </TableView>
             <Button mnemonicParsing="false" text="Adicionar">
                <VBox.margin>
-                  <Insets left="392.0" />
+                  <Insets left="560.0" />
                </VBox.margin>
             </Button>
          </children>

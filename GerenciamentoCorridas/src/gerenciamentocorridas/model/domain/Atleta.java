@@ -1,3 +1,5 @@
+//Aluno: Henrique
+
 package gerenciamentocorridas.model.domain;
 
 public class Atleta {

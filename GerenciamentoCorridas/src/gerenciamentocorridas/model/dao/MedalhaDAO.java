@@ -1,4 +1,4 @@
-package gerenciamentocorridas.model.dao;
+/*package gerenciamentocorridas.model.dao;
 
 import gerenciamentocorridas.model.domain.Medalha;
 
@@ -84,4 +84,4 @@ public class MedalhaDAO {
 
         return medalhas;
     }
-}
+}*/

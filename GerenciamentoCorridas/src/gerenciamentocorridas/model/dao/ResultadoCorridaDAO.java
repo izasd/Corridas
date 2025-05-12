@@ -1,6 +1,6 @@
 package gerenciamentocorridas.model.dao;
 
-import gerenciamentocorridas.model.domain.ResultadoCorrida;
+import gerenciamentocorridas.model.domain.Resultado;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class ResultadoCorridaDAO {
         this.connection = connection;
     }
 
-    public void inserir(ResultadoCorrida resultado) throws SQLException {
+    public void inserir(Resultado resultado) throws SQLException {
         String sql = "INSERT INTO Resultado_Corrida (atleta_id, corrida_id, podio, tempo) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -38,7 +38,7 @@ public class ResultadoCorridaDAO {
         }
     }
 
-    public void atualizar(ResultadoCorrida resultado) throws SQLException {
+    public void atualizar(Resultado resultado) throws SQLException {
         String sql = "UPDATE Resultado_Corrida SET atleta_id = ?, corrida_id = ?, podio = ?, tempo = ? WHERE id = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -67,16 +67,16 @@ public class ResultadoCorridaDAO {
         }
     }
 
-    public ResultadoCorrida buscarPorId(int id) throws SQLException {
+    public Resultado buscarPorId(int id) throws SQLException {
         String sql = "SELECT * FROM Resultado_Corrida WHERE id = ?";
-        ResultadoCorrida resultado = null;
+        Resultado resultado = null;
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                resultado = new ResultadoCorrida(
+                resultado = new Resultado(
                     rs.getInt("id"),
                     rs.getInt("atleta_id"),
                     rs.getInt("corrida_id"),
@@ -89,15 +89,15 @@ public class ResultadoCorridaDAO {
         return resultado;
     }
 
-    public List<ResultadoCorrida> listarTodos() throws SQLException {
-        List<ResultadoCorrida> resultados = new ArrayList<>();
+    public List<Resultado> listarTodos() throws SQLException {
+        List<Resultado> resultados = new ArrayList<>();
         String sql = "SELECT * FROM Resultado_Corrida";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                ResultadoCorrida resultado = new ResultadoCorrida(
+                Resultado resultado = new Resultado(
                     rs.getInt("id"),
                     rs.getInt("atleta_id"),
                     rs.getInt("corrida_id"),

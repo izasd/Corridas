@@ -1,15 +1,15 @@
 package gerenciamentocorridas.model.domain;
 
-public class ResultadoCorrida {
+public class Resultado {
     private int id;
     private int atletaId;
     private int corridaId;
-    private Integer podio; // pode ser nulo (null)
+    private Integer podio;
     private String tempo;
 
-    public ResultadoCorrida() {}
+    public Resultado() {}
 
-    public ResultadoCorrida(int id, int atletaId, int corridaId, Integer podio, String tempo) {
+    public Resultado(int id, int atletaId, int corridaId, Integer podio, String tempo) {
         this.id = id;
         this.atletaId = atletaId;
         this.corridaId = corridaId;

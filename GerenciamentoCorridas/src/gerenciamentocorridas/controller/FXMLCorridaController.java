@@ -1,10 +1,11 @@
 package gerenciamentocorridas.controller;
 
 import gerenciamentocorridas.model.dao.AtletaDAO;
+import gerenciamentocorridas.model.dao.CorridaDAO;
 import gerenciamentocorridas.model.database.Database;
 import gerenciamentocorridas.model.database.DatabaseFactory;
 import gerenciamentocorridas.model.domain.Atleta;
-import java.io.IOException;
+import gerenciamentocorridas.model.domain.Corrida;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
@@ -13,9 +14,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
@@ -23,7 +24,21 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class FXMLAtletaController implements Initializable {
+public class FXMLCorridaController implements Initializable {
+    @FXML
+    private TableView<Corrida> tableCorridas;
+    @FXML
+    private TableColumn<Corrida, String> colEdicao;
+    @FXML
+    private TableColumn<Corrida, String> colPaisCorrida;
+    @FXML
+    private TableColumn<Corrida, String> colCategoria;
+    @FXML
+    private TableColumn<Corrida, String> colDistancia;
+    @FXML
+    private TableColumn<Corrida, String> colGeneroCorrida;
+    @FXML
+    private TableColumn<Corrida, String> colNAtletas;
     @FXML
     private TableView<Atleta> tableAtletas;
     @FXML
@@ -35,21 +50,25 @@ public class FXMLAtletaController implements Initializable {
     @FXML
     private TableColumn<Atleta, String> colIdade;
     @FXML
-    private TextField txtNome;
+    private TextField txtEdicao;
     @FXML
     private TextField txtPais;
     @FXML
+    private ComboBox<String> comboBCategoria;
+    @FXML
+    private ComboBox<String> comboBDistancia;
+    @FXML
     private ChoiceBox<String> choiceBGenero;
     @FXML
-    private Spinner<Integer> spnIdade;
+    private Spinner<Integer> spnQtdMin;
     @FXML
-    private Spinner<Integer> spnBronze;
-    @FXML
-    private Spinner<Integer> spnPrata;
-    @FXML
-    private Spinner<Integer> spnOuro;
+    private Spinner<Integer> spnQtdMax;
     @FXML
     private Button btnLimpar;
+    @FXML
+    private Button btnAdicionar;
+    @FXML
+    private Button btnRemover;
     @FXML
     private Button btnInserir;
     @FXML
@@ -57,23 +76,29 @@ public class FXMLAtletaController implements Initializable {
     @FXML
     private Button btnExcluir;
     
+    private List<Corrida> listCorridas;
+    private ObservableList<Corrida> observableListCorridas;
     private List<Atleta> listAtletas;
     private ObservableList<Atleta> observableListAtletas;
 
     private final Database database = DatabaseFactory.getDatabase("postgresql");
     private final Connection connection = database.conectar();
+    private final CorridaDAO corridaDAO = new CorridaDAO();
     private final AtletaDAO atletaDAO = new AtletaDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        corridaDAO.setConnection(connection);
         atletaDAO.setConnection(connection);
-        spnIdade.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
-        spnBronze.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
-        spnPrata.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
-        spnOuro.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
+        spnQtdMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
+        spnQtdMax.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100));
         choiceBGenero.getItems().addAll("Masculino", "Feminino", "Outro");
+        carregarTableViewCorridas();
         carregarTableViewAtletas();
+        selecionarItemTableViewCorridas(null);
         selecionarItemTableViewAtletas(null);
+        tableCorridas.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> selecionarItemTableViewCorridas(newValue));
         tableAtletas.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> selecionarItemTableViewAtletas(newValue));
     }
@@ -83,7 +108,6 @@ public class FXMLAtletaController implements Initializable {
         colPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
         colGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
         colIdade.setCellValueFactory(new PropertyValueFactory<>("idade"));
-
         listAtletas = atletaDAO.listar();
         observableListAtletas = FXCollections.observableArrayList(listAtletas);
         tableAtletas.setItems(observableListAtletas);
@@ -118,7 +142,7 @@ public class FXMLAtletaController implements Initializable {
     }
     
     public void handleButtonLimpar() throws IOException {
-        selecionarItemTableViewAtletas(null);
+        selecionarItemTableViewCorridas(null);
     }
 
     @FXML
@@ -180,5 +204,10 @@ public class FXMLAtletaController implements Initializable {
             alert.setContentText("Por favor, escolha um atleta na tabela!");
             alert.show();
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

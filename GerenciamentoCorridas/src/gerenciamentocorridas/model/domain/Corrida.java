@@ -5,24 +5,37 @@ package gerenciamentocorridas.model.domain;
 public class Corrida {
     private int id;
     private String edicao;
-    private String local;
+    private String pais;
     private String categoria;
-    private char genero; // 'M' ou 'F'
     private double distancia;
-    private int qtdMaxCorr;
-    private int qtdMinCorr;
+    private String genero;
+    private int qtdAtletas;
+    private int qtdMin;
+    private int qtdMax;
 
     public Corrida() {}
 
-    public Corrida(int id, String edicao, String local, String categoria, char genero, double distancia, int qtdMaxCorr, int qtdMinCorr) {
+    public Corrida(int id, String edicao, String pais, String categoria, double distancia, String genero, int qtdAtletas, int qtdMin, int qtdMax) {
         this.id = id;
         this.edicao = edicao;
-        this.local = local;
+        this.pais = pais;
         this.categoria = categoria;
-        this.genero = genero;
         this.distancia = distancia;
-        this.qtdMaxCorr = qtdMaxCorr;
-        this.qtdMinCorr = qtdMinCorr;
+        this.genero = genero;
+        this.qtdAtletas = qtdAtletas;
+        this.qtdMin = qtdMin;
+        this.qtdMax = qtdMax;
+    }
+    
+    public Corrida (String edicao, String pais, String categoria, double distancia, String genero, int qtdAtletas, int qtdMin, int qtdMax) {
+        this.edicao = edicao;
+        this.pais = pais;
+        this.categoria = categoria;
+        this.distancia = distancia;
+        this.genero = genero;
+        this.qtdAtletas = qtdAtletas;
+        this.qtdMin = qtdMin;
+        this.qtdMax = qtdMax;
     }
 
     public int getId() {
@@ -41,12 +54,12 @@ public class Corrida {
         this.edicao = edicao;
     }
 
-    public String getLocal() {
-        return local;
+    public String getPais() {
+        return pais;
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public String getCategoria() {
@@ -57,14 +70,6 @@ public class Corrida {
         this.categoria = categoria;
     }
 
-    public char getGenero() {
-        return genero;
-    }
-
-    public void setGenero(char genero) {
-        this.genero = genero;
-    }
-
     public double getDistancia() {
         return distancia;
     }
@@ -73,20 +78,36 @@ public class Corrida {
         this.distancia = distancia;
     }
 
-    public int getQtdMaxCorr() {
-        return qtdMaxCorr;
+    public String getGenero() {
+        return genero;
     }
 
-    public void setQtdMaxCorr(int qtdMaxCorr) {
-        this.qtdMaxCorr = qtdMaxCorr;
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
-    public int getQtdMinCorr() {
-        return qtdMinCorr;
+    public int getQtdAtletas() {
+        return qtdAtletas;
     }
 
-    public void setQtdMinCorr(int qtdMinCorr) {
-        this.qtdMinCorr = qtdMinCorr;
+    public void setQtdAtletas(int qtdAtletas) {
+        this.qtdAtletas = qtdAtletas;
+    }
+
+    public int getQtdMin() {
+        return qtdMin;
+    }
+
+    public void setQtdMin(int qtdMin) {
+        this.qtdMin = qtdMin;
+    }
+
+    public int getQtdMax() {
+        return qtdMax;
+    }
+
+    public void setQtdMax(int qtdMax) {
+        this.qtdMax = qtdMax;
     }
 }
 

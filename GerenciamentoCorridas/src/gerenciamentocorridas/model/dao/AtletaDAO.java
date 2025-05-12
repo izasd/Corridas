@@ -14,6 +14,10 @@ import java.util.logging.Logger;
 public class AtletaDAO {
 
     private Connection connection;
+    
+    public Connection getConnection() {
+        return connection;
+    }
 
     public void setConnection(Connection connection) {
         this.connection = connection;

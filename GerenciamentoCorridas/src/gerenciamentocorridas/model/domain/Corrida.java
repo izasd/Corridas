@@ -2,6 +2,8 @@
 
 package gerenciamentocorridas.model.domain;
 
+import java.util.List;
+
 public class Corrida {
     private int id;
     private String edicao;
@@ -10,12 +12,14 @@ public class Corrida {
     private double distancia;
     private String genero;
     private int qtdAtletas;
-    private int qtdMin;
-    private int qtdMax;
+    private int qtdMinCorr;
+    private int qtdMaxCorr;
+    private List<Atleta> atletas;
 
     public Corrida() {}
 
-    public Corrida(int id, String edicao, String pais, String categoria, double distancia, String genero, int qtdAtletas, int qtdMin, int qtdMax) {
+    public Corrida(int id, String edicao, String pais, String categoria, double distancia, String genero,
+                   int qtdAtletas, int qtdMinCorr, int qtdMaxCorr, List<Atleta> atletas) {
         this.id = id;
         this.edicao = edicao;
         this.pais = pais;
@@ -23,19 +27,22 @@ public class Corrida {
         this.distancia = distancia;
         this.genero = genero;
         this.qtdAtletas = qtdAtletas;
-        this.qtdMin = qtdMin;
-        this.qtdMax = qtdMax;
+        this.qtdMinCorr = qtdMinCorr;
+        this.qtdMaxCorr = qtdMaxCorr;
+        this.atletas = atletas;
     }
-    
-    public Corrida (String edicao, String pais, String categoria, double distancia, String genero, int qtdAtletas, int qtdMin, int qtdMax) {
+
+    public Corrida(String edicao, String pais, String categoria, double distancia, String genero,
+                   int qtdAtletas, int qtdMinCorr, int qtdMaxCorr, List<Atleta> atletas) {
         this.edicao = edicao;
         this.pais = pais;
         this.categoria = categoria;
         this.distancia = distancia;
         this.genero = genero;
         this.qtdAtletas = qtdAtletas;
-        this.qtdMin = qtdMin;
-        this.qtdMax = qtdMax;
+        this.qtdMinCorr = qtdMinCorr;
+        this.qtdMaxCorr = qtdMaxCorr;
+        this.atletas = atletas;
     }
 
     public int getId() {
@@ -95,19 +102,28 @@ public class Corrida {
     }
 
     public int getQtdMin() {
-        return qtdMin;
+        return qtdMinCorr;
     }
 
     public void setQtdMin(int qtdMin) {
-        this.qtdMin = qtdMin;
+        this.qtdMinCorr = qtdMinCorr;
     }
 
     public int getQtdMax() {
-        return qtdMax;
+        return qtdMaxCorr;
     }
 
     public void setQtdMax(int qtdMax) {
-        this.qtdMax = qtdMax;
+        this.qtdMaxCorr = qtdMaxCorr;
     }
+    
+    public List<Atleta> getAtletas() {
+        return atletas;
+    }
+
+    public void setAtletas(List<Atleta> atletas) {
+        this.atletas = atletas;
+    }
+
 }
 

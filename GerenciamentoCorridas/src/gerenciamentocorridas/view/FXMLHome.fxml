@@ -32,10 +32,12 @@
                   <MenuItem fx:id="menuResultados" mnemonicParsing="false" onAction="#handleMenuItemResultados" text="Resultados" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Relatório">
+            <Menu fx:id="menuRelatorio" mnemonicParsing="false" text="Relatórios e Gráficos">
                <items>
-                  <MenuItem fx:id="menuTabelas" mnemonicParsing="false" onAction="#handleMenuItemTabelas" text="Tabelas" />
-                  <MenuItem fx:id="menuGraficos" mnemonicParsing="false" onAction="#handleMenuItemGraficos" text="Gráficos" />
+                  <MenuItem fx:id="menuRelAtletasPorPais" mnemonicParsing="false" onAction="#handleMenuItemRelAtletasPorPais" text="Listar atletas por país" />
+                  <MenuItem fx:id="menuRelHistorico" mnemonicParsing="false" onAction="#handleMenuItemRelHistorico" text="Histórico de participações" />
+                  <MenuItem fx:id="menuRelParticipantesPorEdicao" mnemonicParsing="false" onAction="#handleMenuItemRelParticipantesPorEdicao" text="Número de participantes por edição" />
+                  <MenuItem fx:id="menuRelMedalhasPorAtleta" mnemonicParsing="false" onAction="#handleMenuItemRelMedalhasPorAtleta" text="Medalhas por atleta" />
                </items>
             </Menu>
         </menus>
@@ -82,7 +84,7 @@
                             <RowConstraints maxHeight="30.66668701171875" minHeight="8.0" prefHeight="30.66668701171875" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Local:">
+                              <Label text="Pais:">
                                  <font>
                                     <Font name="Calibri" size="32.0" />
                                  </font>
@@ -97,12 +99,12 @@
                                     <Font name="Calibri" size="32.0" />
                                  </font>
                               </Label>
-                              <Label text="Metros rasos" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Label text="Profissional" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font name="Calibri" size="32.0" />
                                  </font>
                               </Label>
-                              <Label text="100m" GridPane.columnIndex="3">
+                              <Label text="42.2" GridPane.columnIndex="3">
                                  <font>
                                     <Font name="Calibri" size="32.0" />
                                  </font>
@@ -128,7 +130,7 @@
                           <columns>
                             <TableColumn fx:id="colunaPosicao" prefWidth="64.0001220703125" text="Posição" />
                             <TableColumn fx:id="colunaAtleta" prefWidth="305.3333740234375" text="Atleta" />
-                              <TableColumn fx:id="colunaPais" prefWidth="127.99993896484375" text="País" />
+                              <TableColumn fx:id="colunaPais" prefWidth="127.99993896484375" text="Pais" />
                               <TableColumn fx:id="colunaTempo" prefWidth="63.3333740234375" text="Tempo" />
                           </columns>
                            <columnResizePolicy>

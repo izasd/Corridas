@@ -2,27 +2,47 @@
 
 package gerenciamentocorridas.model.domain;
 
+import java.util.List;
+
 public class Corrida {
     private int id;
     private String edicao;
     private String local;
     private String categoria;
-    private char genero; // 'M' ou 'F'
     private double distancia;
-    private int qtdMaxCorr;
+    private String genero;
+    private int qtdAtletas;
     private int qtdMinCorr;
+    private int qtdMaxCorr;
+    private List<Atleta> atletas;
 
     public Corrida() {}
 
-    public Corrida(int id, String edicao, String local, String categoria, char genero, double distancia, int qtdMaxCorr, int qtdMinCorr) {
+    public Corrida(int id, String edicao, String local, String categoria, double distancia, String genero,
+                   int qtdAtletas, int qtdMinCorr, int qtdMaxCorr, List<Atleta> atletas) {
         this.id = id;
         this.edicao = edicao;
         this.local = local;
         this.categoria = categoria;
-        this.genero = genero;
         this.distancia = distancia;
-        this.qtdMaxCorr = qtdMaxCorr;
+        this.genero = genero;
+        this.qtdAtletas = qtdAtletas;
         this.qtdMinCorr = qtdMinCorr;
+        this.qtdMaxCorr = qtdMaxCorr;
+        this.atletas = atletas;
+    }
+
+    public Corrida(String edicao, String local, String categoria, double distancia, String genero,
+                   int qtdAtletas, int qtdMinCorr, int qtdMaxCorr, List<Atleta> atletas) {
+        this.edicao = edicao;
+        this.local = local;
+        this.categoria = categoria;
+        this.distancia = distancia;
+        this.genero = genero;
+        this.qtdAtletas = qtdAtletas;
+        this.qtdMinCorr = qtdMinCorr;
+        this.qtdMaxCorr = qtdMaxCorr;
+        this.atletas = atletas;
     }
 
     public int getId() {
@@ -57,14 +77,6 @@ public class Corrida {
         this.categoria = categoria;
     }
 
-    public char getGenero() {
-        return genero;
-    }
-
-    public void setGenero(char genero) {
-        this.genero = genero;
-    }
-
     public double getDistancia() {
         return distancia;
     }
@@ -73,20 +85,45 @@ public class Corrida {
         this.distancia = distancia;
     }
 
-    public int getQtdMaxCorr() {
-        return qtdMaxCorr;
+    public String getGenero() {
+        return genero;
     }
 
-    public void setQtdMaxCorr(int qtdMaxCorr) {
-        this.qtdMaxCorr = qtdMaxCorr;
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public int getQtdAtletas() {
+        return qtdAtletas;
+    }
+
+    public void setQtdAtletas(int qtdAtletas) {
+        this.qtdAtletas = qtdAtletas;
     }
 
     public int getQtdMinCorr() {
         return qtdMinCorr;
     }
 
-    public void setQtdMinCorr(int qtdMinCorr) {
+    public void setQtdMinCorr(int qtdMin) {
         this.qtdMinCorr = qtdMinCorr;
     }
+
+    public int getQtdMaxCorr() {
+        return qtdMaxCorr;
+    }
+
+    public void setQtdMaxCorr(int qtdMax) {
+        this.qtdMaxCorr = qtdMaxCorr;
+    }
+    
+    public List<Atleta> getAtletas() {
+        return atletas;
+    }
+
+    public void setAtletas(List<Atleta> atletas) {
+        this.atletas = atletas;
+    }
+
 }
 

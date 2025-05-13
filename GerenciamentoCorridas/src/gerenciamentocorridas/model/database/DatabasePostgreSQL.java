@@ -6,10 +6,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Rafael Vargas Mesquita
- */
 public class DatabasePostgreSQL implements Database {
     private Connection connection;
 
@@ -17,7 +13,7 @@ public class DatabasePostgreSQL implements Database {
     public Connection conectar() {
         try {
             Class.forName("org.postgresql.Driver");
-            this.connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1/GerenciamentoCorridas", "postgres","admin");
+            this.connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1/GerenciamentoCorridas", "postgres","postgres");
             return this.connection;
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DatabasePostgreSQL.class.getName()).log(Level.SEVERE, null, ex);

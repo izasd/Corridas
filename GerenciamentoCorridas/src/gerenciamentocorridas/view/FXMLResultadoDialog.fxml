@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="205.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gerenciamentocorridas.controller.FXMLResultadoDialogController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="176.0" prefWidth="316.0">
+         <children>
+            <Group layoutX="48.0" layoutY="-11.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+               <children>
+                  <Button fx:id="btnConfirmar" layoutX="107.0" layoutY="144.0" mnemonicParsing="false" onAction="#handleButtonConfirmar" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: green;" text="Confirmar">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Button fx:id="btnCancelar" layoutX="184.0" layoutY="144.0" mnemonicParsing="false" onAction="#handleButtonCancelar" prefHeight="25.0" prefWidth="74.0" style="-fx-background-color: red;" text="Cancelar">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+               </children>
+            </Group>
+            <GridPane layoutX="26.0" layoutY="25.0" prefHeight="90.0" prefWidth="277.0" AnchorPane.rightAnchor="20.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="82.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="205.0" minWidth="10.0" prefWidth="195.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="labelClienteNome" text="Nome" />
+                  <Label fx:id="labelClienteCPF" text="Posição" GridPane.rowIndex="1" />
+                  <Label fx:id="labelClienteTelefone" text="Tempo" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="comboAtleta" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="txtPosicao" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtTempo" text="HH:MM:SS" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

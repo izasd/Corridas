@@ -1,6 +1,8 @@
+//Aluno: Henrique
 package gerenciamentocorridas.model.domain;
 
 public class Atleta {
+
     private int id;
     private String nome;
     private int idade;
@@ -10,7 +12,8 @@ public class Atleta {
     private int prata;
     private int ouro;
 
-    public Atleta() {}
+    public Atleta() {
+    }
 
     public Atleta(int id, String nome, int idade, String genero, String pais, int bronze, int prata, int ouro) {
         this.id = id;
@@ -96,4 +99,10 @@ public class Atleta {
     public void setOuro(int ouro) {
         this.ouro = ouro;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+
 }

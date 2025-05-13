@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="376.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gerenciamentocorridas.controller.FXMLRelatorioAtletasPorPaisController">
+   <children>
+      <TableView fx:id="tableViewAtletas" layoutX="1.0" layoutY="43.0" prefHeight="376.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="tableColumnAtletaNome" prefWidth="208.0" text="Nome" />
+          <TableColumn fx:id="tableColumnAtletaIdade" minWidth="0.0" prefWidth="61.0" text="Idade" />
+            <TableColumn fx:id="tableColumnAtletaGenero" prefWidth="47.0" text="Gênero" />
+            <TableColumn fx:id="tableColumnAtletaPais" minWidth="0.0" prefWidth="135.0" text="País" />
+            <TableColumn fx:id="tableColumnAtletaBronze" minWidth="0.0" prefWidth="57.0" text="Bronze" />
+            <TableColumn fx:id="tableColumnAtletaPrata" minWidth="0.0" prefWidth="48.0" text="Prata" />
+            <TableColumn fx:id="tableColumnAtletaOuro" prefWidth="42.0" text="Ouro" />
+        </columns>
+      </TableView>
+      <Button fx:id="buttonImprimir" layoutX="518.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleImprimir" text="Imprimir" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+   </children>
+</AnchorPane>

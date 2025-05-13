@@ -32,12 +32,12 @@
                   <MenuItem fx:id="menuResultados" mnemonicParsing="false" onAction="#handleMenuItemResultados" text="Resultados" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Relatório">
+            <Menu fx:id="menuRelatorio" mnemonicParsing="false" text="Relatórios e Gráficos">
                <items>
-                  <MenuItem fx:id="menuTabelas" mnemonicParsing="false" onAction="#handleMenuItemTabelas" text="Listar atletas por país" />
-                  <MenuItem fx:id="menuGraficos" mnemonicParsing="false" onAction="#handleMenuItemGraficos" text="Histórico de participações" />
-                  <MenuItem fx:id="menuTabelas1" mnemonicParsing="false" onAction="#handleMenuItemTabelas" text="Número de participantes por edição" />
-                  <MenuItem fx:id="menuTabelas2" mnemonicParsing="false" onAction="#handleMenuItemTabelas" text="Medalhas por atleta" />
+                  <MenuItem fx:id="menuRelAtletasPorPais" mnemonicParsing="false" onAction="#handleMenuItemRelAtletasPorPais" text="Listar atletas por país" />
+                  <MenuItem fx:id="menuRelHistorico" mnemonicParsing="false" onAction="#handleMenuItemRelHistorico" text="Histórico de participações" />
+                  <MenuItem fx:id="menuRelParticipantesPorEdicao" mnemonicParsing="false" onAction="#handleMenuItemRelParticipantesPorEdicao" text="Número de participantes por edição" />
+                  <MenuItem fx:id="menuRelMedalhasPorAtleta" mnemonicParsing="false" onAction="#handleMenuItemRelMedalhasPorAtleta" text="Medalhas por atleta" />
                </items>
             </Menu>
         </menus>

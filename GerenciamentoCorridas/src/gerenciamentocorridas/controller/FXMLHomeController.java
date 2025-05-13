@@ -26,9 +26,13 @@ public class FXMLHomeController {
     @FXML
     private MenuItem menuResultados;
     @FXML
-    private MenuItem menuTabelas;
+    private MenuItem menuRelAtletasPorPais;
     @FXML
-    private MenuItem menuGraficos;
+    private MenuItem menuRelHistorico;
+    @FXML
+    private MenuItem menuRelParticipantesPorEdicao;
+    @FXML
+    private MenuItem menuRelMedalhasPorAtleta;
 
     @FXML
     private TableView<Resultado> tabelaResultados;
@@ -54,9 +58,8 @@ public class FXMLHomeController {
     }
 
     //private ObservableList<Resultado> getResultadosOlimpiadas2024() {
-        // placeholder
+    // placeholder
     //}
-
     @FXML
     public void handleMenuItemHome() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLHome.fxml"));
@@ -82,16 +85,27 @@ public class FXMLHomeController {
     }
 
     @FXML
-    public void handleMenuItemTabelas() throws IOException {
-        // Placeholder: Substituir quando as abas estiverem configuradas
-        AnchorPane a = new AnchorPane();
+    public void handleMenuItemRelAtletasPorPais() throws IOException {
+        AnchorPane a = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLRelatorioAtletasPorPais.fxml"));
         anchorPane.getChildren().setAll(a);
     }
 
     @FXML
-    public void handleMenuItemGraficos() throws IOException {
-        // Placeholder: Substituir quando as abas estiverem configuradas
-        AnchorPane a = new AnchorPane();
+    public void handleMenuItemRelHistorico() throws IOException {
+        AnchorPane a = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLRelatorioHistoricoParticipacoesAtleta.fxml"));
         anchorPane.getChildren().setAll(a);
     }
+
+    @FXML
+    public void handleMenuItemRelParticipantesPorEdicao() throws IOException {
+        AnchorPane a = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLRelatorioParticipantesPorEdicao.fxml"));
+        anchorPane.getChildren().setAll(a);
+    }
+
+    @FXML
+    public void handleMenuItemRelMedalhasPorAtleta() throws IOException {
+        AnchorPane a = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLRelatorioMedalhasPorAtleta.fxml"));
+        anchorPane.getChildren().setAll(a);
+    }
+
 }

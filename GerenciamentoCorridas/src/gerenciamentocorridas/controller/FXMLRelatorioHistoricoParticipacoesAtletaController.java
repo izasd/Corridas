@@ -91,7 +91,7 @@ public class FXMLRelatorioHistoricoParticipacoesAtletaController implements Init
                 + "ORDER BY c.edicao";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "%" + nomeAtleta + "%"); // <-- AQUI a correção
+            stmt.setString(1, "%" + nomeAtleta + "%");
 
             ResultSet rs = stmt.executeQuery();
 

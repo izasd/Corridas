@@ -1,7 +1,7 @@
 package gerenciamentocorridas.model.dao;
 
 import gerenciamentocorridas.model.domain.Resultado;
-
+import org.postgresql.util.PGInterval;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,8 @@ public class ResultadoCorridaDAO {
                 stmt.setNull(3, Types.INTEGER);
             }
 
-            stmt.setString(4, resultado.getTempo()); // assume que tempo está em formato PostgreSQL válido: '00:10:35'
+            PGInterval intervalo = new PGInterval(resultado.getTempo());
+            stmt.setObject(4, intervalo);
 
             stmt.executeUpdate();
 
@@ -51,7 +52,9 @@ public class ResultadoCorridaDAO {
                 stmt.setNull(3, Types.INTEGER);
             }
 
-            stmt.setString(4, resultado.getTempo());
+            PGInterval intervalo = new PGInterval(resultado.getTempo());
+            stmt.setObject(4, intervalo);
+
             stmt.setInt(5, resultado.getId());
 
             stmt.executeUpdate();
@@ -81,7 +84,7 @@ public class ResultadoCorridaDAO {
                     rs.getInt("atleta_id"),
                     rs.getInt("corrida_id"),
                     rs.getObject("podio") != null ? rs.getInt("podio") : null,
-                    rs.getString("tempo") // INTERVAL convertido para string
+                    rs.getString("tempo")
                 );
             }
         }

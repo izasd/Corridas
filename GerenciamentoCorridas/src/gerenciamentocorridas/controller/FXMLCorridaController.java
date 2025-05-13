@@ -102,11 +102,11 @@ public class FXMLCorridaController {
 
     public void carregarTableViewCorridas() {
         columnEdicao.setCellValueFactory(new PropertyValueFactory<>("edicao"));
-        columnPaisCorrida.setCellValueFactory(new PropertyValueFactory<>("pais"));
+        columnPaisCorrida.setCellValueFactory(new PropertyValueFactory<>("local"));
         columnCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
         columnDistancia.setCellValueFactory(new PropertyValueFactory<>("distancia"));
         columnGeneroCorrida.setCellValueFactory(new PropertyValueFactory<>("genero"));
-        columnNAtletas.setCellValueFactory(new PropertyValueFactory<>("natletas"));
+        columnNAtletas.setCellValueFactory(new PropertyValueFactory<>("qtdAtletas"));
 
         listCorridas = corridaDAO.listar();
         observableListCorridas = FXCollections.observableArrayList(listCorridas);

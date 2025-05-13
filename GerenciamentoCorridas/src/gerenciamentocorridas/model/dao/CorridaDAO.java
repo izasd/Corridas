@@ -33,7 +33,7 @@ public class CorridaDAO {
             stmt.setString(3, corrida.getCategoria());
             stmt.setDouble(4, corrida.getDistancia());
             stmt.setString(5, corrida.getGenero());
-            stmt.setInt(6, corrida.getQtdAtletas());
+            stmt.setInt(6, 0);
             stmt.setInt(7, corrida.getQtdMinCorr());
             stmt.setInt(8, corrida.getQtdMaxCorr());
             stmt.executeUpdate();
@@ -45,6 +45,8 @@ public class CorridaDAO {
                 corrida.setId(idCorrida);
             }
 
+            corrida.setId(idCorrida);
+
             if (corrida.getAtletas() != null) {
                 for (Atleta atleta : corrida.getAtletas()) {
                     String sqlAssoc = "INSERT INTO Corrida_Atleta(corrida_id, atleta_id) VALUES (?, ?)";
@@ -52,6 +54,8 @@ public class CorridaDAO {
                     assocStmt.setInt(1, corrida.getId());
                     assocStmt.setInt(2, atleta.getId());
                     assocStmt.executeUpdate();
+
+                    incrementarQtdAtletas(corrida.getId());
                 }
             }
 
@@ -101,6 +105,7 @@ public class CorridaDAO {
                     atletas.add(atleta);
                 }
                 corrida.setAtletas(atletas);
+                corrida.setQtdAtletas(atletas.size());
 
                 listaCorridas.add(corrida);
             }
@@ -111,7 +116,7 @@ public class CorridaDAO {
     }
 
     public boolean alterar(Corrida corrida) {
-        String sql = "UPDATE Corrida SET edicao=?, pais=?, categoria=?, distancia=?, genero=?, qtdAtletas=?, qtdMin=?, qtdMax WHERE id=?";
+        String sql = "UPDATE Corrida SET edicao=?, local=?, categoria=?, distancia=?, genero=?, qtd_min_corr=?, qtd_max_corr=? WHERE id=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, corrida.getEdicao());
@@ -119,16 +124,17 @@ public class CorridaDAO {
             stmt.setString(3, corrida.getCategoria());
             stmt.setDouble(4, corrida.getDistancia());
             stmt.setString(5, corrida.getGenero());
-            stmt.setInt(6, corrida.getQtdAtletas());
-            stmt.setInt(7, corrida.getQtdMinCorr());
-            stmt.setInt(8, corrida.getQtdMaxCorr());
-            stmt.setInt(9, corrida.getId());
+            stmt.setInt(6, corrida.getQtdMinCorr());
+            stmt.setInt(7, corrida.getQtdMaxCorr());
+            stmt.setInt(8, corrida.getId());
             stmt.executeUpdate();
 
             String sqlDeleteVinculos = "DELETE FROM Corrida_Atleta WHERE corrida_id = ?";
             PreparedStatement stmtDelete = connection.prepareStatement(sqlDeleteVinculos);
             stmtDelete.setInt(1, corrida.getId());
             stmtDelete.executeUpdate();
+
+            atualizarQtdAtletas(corrida.getId(), 0);
 
             if (corrida.getAtletas() != null) {
                 for (Atleta atleta : corrida.getAtletas()) {
@@ -137,6 +143,8 @@ public class CorridaDAO {
                     stmtAssoc.setInt(1, corrida.getId());
                     stmtAssoc.setInt(2, atleta.getId());
                     stmtAssoc.executeUpdate();
+
+                    incrementarQtdAtletas(corrida.getId());
                 }
             }
 
@@ -159,4 +167,27 @@ public class CorridaDAO {
             return false;
         }
     }
+
+    public void incrementarQtdAtletas(int corridaId) throws SQLException {
+        String sql = "UPDATE Corrida SET qtd_atletas = qtd_atletas + 1 WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, corridaId);
+        stmt.executeUpdate();
+    }
+
+    public void decrementarQtdAtletas(int corridaId) throws SQLException {
+        String sql = "UPDATE Corrida SET qtd_atletas = qtd_atletas - 1 WHERE id = ? AND qtd_atletas > 0";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, corridaId);
+        stmt.executeUpdate();
+    }
+
+    public void atualizarQtdAtletas(int corridaId, int novaQuantidade) throws SQLException {
+        String sql = "UPDATE Corrida SET qtd_atletas = ? WHERE id = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, novaQuantidade);
+        stmt.setInt(2, corridaId);
+        stmt.executeUpdate();
+    }
+
 }

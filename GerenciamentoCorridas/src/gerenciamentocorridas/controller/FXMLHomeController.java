@@ -1,5 +1,8 @@
 package gerenciamentocorridas.controller;
 
+import gerenciamentocorridas.model.database.Database;
+import gerenciamentocorridas.model.database.DatabaseFactory;
+import gerenciamentocorridas.model.database.DatabasePostgreSQL;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +12,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import gerenciamentocorridas.model.domain.Resultado;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -45,6 +52,9 @@ public class FXMLHomeController {
     @FXML
     private TableColumn<Resultado, Double> colunaTempo;
 
+    private final Database database = DatabaseFactory.getDatabase("postgresql");
+    private final Connection connection = database.conectar();
+
     @FXML
     public void initialize() {
         if (tabelaResultados != null) {
@@ -58,8 +68,8 @@ public class FXMLHomeController {
     }
 
     //private ObservableList<Resultado> getResultadosOlimpiadas2024() {
-    // placeholder
     //}
+
     @FXML
     public void handleMenuItemHome() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLHome.fxml"));
@@ -80,7 +90,14 @@ public class FXMLHomeController {
 
     @FXML
     public void handleMenuItemResultados() throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLResultado.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gerenciamentocorridas/view/FXMLResultado.fxml"));
+        AnchorPane a = loader.load();
+        FXMLResultadoController controller = loader.getController();
+
+        Database db = new DatabasePostgreSQL();
+        controller.setConnection(db.conectar());
+        controller.carregarCorridas();
+
         anchorPane.getChildren().setAll(a);
     }
 

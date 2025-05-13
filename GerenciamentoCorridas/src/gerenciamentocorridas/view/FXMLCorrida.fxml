@@ -24,7 +24,7 @@
                   <TableView fx:id="tableCorridas" layoutY="37.333333333333336" prefHeight="608.0" prefWidth="581.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
                         <TableColumn fx:id="columnEdicao" prefWidth="119.99999749660492" text="Edição" />
-                        <TableColumn fx:id="columnPaisCorrida" prefWidth="156.66667938232422" text="Pais" />
+                        <TableColumn fx:id="columnPaisCorrida" prefWidth="156.66667938232422" text="Local" />
                         <TableColumn fx:id="columnCategoria" prefWidth="97.99993896484375" text="Categoria" />
                         <TableColumn fx:id="columnDistancia" prefWidth="71.33331298828125" text="Distância" />
                         <TableColumn fx:id="columnGeneroCorrida" prefWidth="85.33328247070312" text="Gênero" />

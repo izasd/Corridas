@@ -28,7 +28,6 @@ public class CorridaDAO {
         String sql = "INSERT INTO Corrida(edicao, local, categoria, distancia, genero, qtd_atletas, qtd_min_corr, qtd_max_corr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.executeUpdate();
             stmt.setString(1, corrida.getEdicao());
             stmt.setString(2, corrida.getLocal());
             stmt.setString(3, corrida.getCategoria());
@@ -43,6 +42,7 @@ public class CorridaDAO {
             int idCorrida = -1;
             if (generatedKeys.next()) {
                 idCorrida = generatedKeys.getInt(1);
+                corrida.setId(idCorrida);
             }
 
             if (corrida.getAtletas() != null) {

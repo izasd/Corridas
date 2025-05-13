@@ -25,11 +25,12 @@ public class CorridaDAO {
     }
 
     public boolean inserir(Corrida corrida) {
-        String sql = "INSERT INTO Corrida(edicao, pais, categoria, distancia, genero, qtdAtletas, qtdMin, qtdMax) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Corrida(edicao, local, categoria, distancia, genero, qtd_atletas, qtd_min_corr, qtd_max_corr) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.executeUpdate();
             stmt.setString(1, corrida.getEdicao());
-            stmt.setString(2, corrida.getPais());
+            stmt.setString(2, corrida.getLocal());
             stmt.setString(3, corrida.getCategoria());
             stmt.setDouble(4, corrida.getDistancia());
             stmt.setString(5, corrida.getGenero());
@@ -39,8 +40,9 @@ public class CorridaDAO {
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
+            int idCorrida = -1;
             if (generatedKeys.next()) {
-                corrida.setId(generatedKeys.getInt(1));
+                idCorrida = generatedKeys.getInt(1);
             }
 
             if (corrida.getAtletas() != null) {
@@ -71,17 +73,17 @@ public class CorridaDAO {
                 Corrida corrida = new Corrida();
                 corrida.setId(resultado.getInt("id"));
                 corrida.setEdicao(resultado.getString("edicao"));
-                corrida.setPais(resultado.getString("local")); // novamente, campo é "local"
+                corrida.setLocal(resultado.getString("local")); // novamente, campo é "local"
                 corrida.setCategoria(resultado.getString("categoria"));
                 corrida.setDistancia(resultado.getDouble("distancia"));
                 corrida.setGenero(resultado.getString("genero"));
                 corrida.setQtdMinCorr(resultado.getInt("qtd_min_corr"));
                 corrida.setQtdMaxCorr(resultado.getInt("qtd_max_corr"));
 
-                String sqlAtletas = "SELECT a.* FROM Atleta a " +
-                    "INNER JOIN Corrida_Atleta ca ON a.id = ca.atleta_id " +
-                    "WHERE ca.corrida_id = ?";
-            
+                String sqlAtletas = "SELECT a.* FROM Atleta a "
+                        + "INNER JOIN Corrida_Atleta ca ON a.id = ca.atleta_id "
+                        + "WHERE ca.corrida_id = ?";
+
                 PreparedStatement stmtAtleta = connection.prepareStatement(sqlAtletas);
                 stmtAtleta.setInt(1, corrida.getId());
                 ResultSet rsAtletas = stmtAtleta.executeQuery();
@@ -113,7 +115,7 @@ public class CorridaDAO {
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, corrida.getEdicao());
-            stmt.setString(2, corrida.getPais());
+            stmt.setString(2, corrida.getLocal());
             stmt.setString(3, corrida.getCategoria());
             stmt.setDouble(4, corrida.getDistancia());
             stmt.setString(5, corrida.getGenero());
@@ -122,7 +124,7 @@ public class CorridaDAO {
             stmt.setInt(8, corrida.getQtdMaxCorr());
             stmt.setInt(9, corrida.getId());
             stmt.executeUpdate();
- 
+
             String sqlDeleteVinculos = "DELETE FROM Corrida_Atleta WHERE corrida_id = ?";
             PreparedStatement stmtDelete = connection.prepareStatement(sqlDeleteVinculos);
             stmtDelete.setInt(1, corrida.getId());

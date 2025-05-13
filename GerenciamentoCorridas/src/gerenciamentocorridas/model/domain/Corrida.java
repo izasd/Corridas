@@ -7,7 +7,7 @@ import java.util.List;
 public class Corrida {
     private int id;
     private String edicao;
-    private String pais;
+    private String local;
     private String categoria;
     private double distancia;
     private String genero;
@@ -18,11 +18,11 @@ public class Corrida {
 
     public Corrida() {}
 
-    public Corrida(int id, String edicao, String pais, String categoria, double distancia, String genero,
+    public Corrida(int id, String edicao, String local, String categoria, double distancia, String genero,
                    int qtdAtletas, int qtdMinCorr, int qtdMaxCorr, List<Atleta> atletas) {
         this.id = id;
         this.edicao = edicao;
-        this.pais = pais;
+        this.local = local;
         this.categoria = categoria;
         this.distancia = distancia;
         this.genero = genero;
@@ -32,10 +32,10 @@ public class Corrida {
         this.atletas = atletas;
     }
 
-    public Corrida(String edicao, String pais, String categoria, double distancia, String genero,
+    public Corrida(String edicao, String local, String categoria, double distancia, String genero,
                    int qtdAtletas, int qtdMinCorr, int qtdMaxCorr, List<Atleta> atletas) {
         this.edicao = edicao;
-        this.pais = pais;
+        this.local = local;
         this.categoria = categoria;
         this.distancia = distancia;
         this.genero = genero;
@@ -61,12 +61,12 @@ public class Corrida {
         this.edicao = edicao;
     }
 
-    public String getPais() {
-        return pais;
+    public String getLocal() {
+        return local;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setLocal(String local) {
+        this.local = local;
     }
 
     public String getCategoria() {

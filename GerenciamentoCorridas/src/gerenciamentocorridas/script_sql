@@ -39,6 +39,17 @@ CREATE TABLE Resultado_Corrida (
     tempo INTERVAL NOT NULL -- Usamos INTERVAL para representar tempo no PostgreSQL
 );
 
+CREATE TABLE categoria (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE distancia (
+    id SERIAL PRIMARY KEY,
+    valor NUMERIC(5,2) NOT NULL UNIQUE
+);
+
+
 -- Inserts
 
 INSERT INTO atleta (nome, idade, genero, pais, bronze, prata, ouro) VALUES
@@ -87,3 +98,16 @@ INSERT INTO resultado_corrida (atleta_id, corrida_id, podio, tempo) VALUES
 INSERT INTO resultado_corrida (atleta_id, corrida_id, podio, tempo) VALUES
 (1, 3, 2, '01:12:00'),
 (3, 3, 1, '01:10:30');
+
+-- Categorias
+INSERT INTO categoria (nome) VALUES 
+('Amador'),
+('Profissional'),
+('Elite');
+
+-- Distâncias
+INSERT INTO distancia (valor) VALUES 
+(5.0),
+(10.0),
+(21.1),
+(42.195);

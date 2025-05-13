@@ -42,6 +42,7 @@ public class CorridaDAO {
             int idCorrida = -1;
             if (generatedKeys.next()) {
                 idCorrida = generatedKeys.getInt(1);
+                corrida.setId(idCorrida);
             }
 
             corrida.setId(idCorrida);

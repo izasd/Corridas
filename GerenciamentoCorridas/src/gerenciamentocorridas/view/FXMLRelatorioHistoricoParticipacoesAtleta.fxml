@@ -5,28 +5,21 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" 
-            xmlns="http://javafx.com/javafx/23.0.1" 
-            xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="gerenciamentocorridas.controller.FXMLRelatorioHistoricoParticipacoesAtletaController">
+<AnchorPane id="AnchorPane" prefHeight="520.0" prefWidth="759.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gerenciamentocorridas.controller.FXMLRelatorioHistoricoParticipacoesAtletaController">
    <children>
-      <TableView fx:id="tableViewParticipacoes" layoutX="0.0" layoutY="0.0" 
-                 prefHeight="350.0" prefWidth="600.0" 
-                 AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" 
-                 AnchorPane.rightAnchor="10.0" AnchorPane.bottomAnchor="50.0">
+      <TableView fx:id="tableViewParticipacoes" layoutX="0.0" layoutY="0.0" prefHeight="340.0" prefWidth="585.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
          <columns>
-            <TableColumn fx:id="colunaEdicao" prefWidth="120.0" text="Edição" />
-            <TableColumn fx:id="colunaLocal" prefWidth="100.0" text="Local" />
-            <TableColumn fx:id="colunaCategoria" prefWidth="100.0" text="Categoria" />
-            <TableColumn fx:id="colunaDistancia" prefWidth="80.0" text="Distância (km)" />
-            <TableColumn fx:id="colunaTempo" prefWidth="100.0" text="Tempo" />
-            <TableColumn fx:id="colunaColocacao" prefWidth="80.0" text="Colocação" />
+            <TableColumn fx:id="colunaIdAtleta" minWidth="0.0" prefWidth="22.0" text="ID" />
+            <TableColumn fx:id="colunaAtleta" minWidth="0.0" prefWidth="119.0" text="Atleta" />
+            <TableColumn fx:id="colunaEdicao" minWidth="0.0" prefWidth="115.0" text="Edição" />
+            <TableColumn fx:id="colunaLocal" minWidth="9.0" prefWidth="124.0" text="Local" />
+            <TableColumn fx:id="colunaCategoria" prefWidth="116.0" text="Categoria" />
+            <TableColumn fx:id="colunaDistancia" prefWidth="100.0" text="Distância (km)" />
+            <TableColumn fx:id="colunaTempo" prefWidth="59.0" text="Tempo" />
+            <TableColumn fx:id="colunaColocacao" prefWidth="88.0" text="Colocação" />
          </columns>
       </TableView>
 
-      <Button fx:id="buttonImprimir" layoutX="500.0" layoutY="360.0" 
-              mnemonicParsing="false" text="Imprimir" 
-              onAction="#handleImprimir" 
-              AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Button fx:id="buttonImprimir" layoutX="500.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleImprimir" text="Imprimir" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
    </children>
 </AnchorPane>

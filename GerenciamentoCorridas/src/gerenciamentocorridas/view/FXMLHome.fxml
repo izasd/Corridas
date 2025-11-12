@@ -40,6 +40,10 @@
                   <MenuItem fx:id="menuRelMedalhasPorAtleta" mnemonicParsing="false" onAction="#handleMenuItemRelMedalhasPorAtleta" text="Medalhas por atleta" />
                </items>
             </Menu>
+            <Menu fx:id="menuSistemaGrupos" mnemonicParsing="false" text="Sistema de Grupos">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuRelAbrir" text="Abrir" />
+               </items></Menu>
         </menus>
       </MenuBar>
     <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="695.0" prefWidth="1280.0">

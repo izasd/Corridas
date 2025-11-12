@@ -98,4 +98,5 @@ public class AtletaDAO {
         }
         return listaAtletas;
     }
+    
 }

@@ -106,7 +106,7 @@ public class Corrida {
     }
 
     public void setQtdMinCorr(int qtdMin) {
-        this.qtdMinCorr = qtdMinCorr;
+        this.qtdMinCorr = qtdMin;
     }
 
     public int getQtdMaxCorr() {
@@ -114,7 +114,7 @@ public class Corrida {
     }
 
     public void setQtdMaxCorr(int qtdMax) {
-        this.qtdMaxCorr = qtdMaxCorr;
+        this.qtdMaxCorr = qtdMax;
     }
     
     public List<Atleta> getAtletas() {

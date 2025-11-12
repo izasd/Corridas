@@ -190,4 +190,19 @@ public class CorridaDAO {
         stmt.executeUpdate();
     }
 
+    public boolean atletaJaInscrito(int atletaId, int corridaId) {
+        String sql = "SELECT COUNT(*) FROM corrida_atleta WHERE atleta_id = ? AND corrida_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, atletaId);
+            stmt.setInt(2, corridaId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }

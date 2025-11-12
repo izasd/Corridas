@@ -23,7 +23,6 @@ public class FXMLHomeController {
 
     @FXML
     private AnchorPane anchorPane;
-
     @FXML
     private MenuItem menuHome;
     @FXML
@@ -40,7 +39,10 @@ public class FXMLHomeController {
     private MenuItem menuRelParticipantesPorEdicao;
     @FXML
     private MenuItem menuRelMedalhasPorAtleta;
-
+    @FXML
+    private MenuItem menuSistemaGrupos;
+    @FXML
+    private MenuItem menuRelAbrir;
     @FXML
     private TableView<Resultado> tabelaResultados;
     @FXML
@@ -69,7 +71,6 @@ public class FXMLHomeController {
 
     //private ObservableList<Resultado> getResultadosOlimpiadas2024() {
     //}
-
     @FXML
     public void handleMenuItemHome() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLHome.fxml"));
@@ -115,14 +116,21 @@ public class FXMLHomeController {
 
     @FXML
     public void handleMenuItemRelParticipantesPorEdicao() throws IOException {
-        AnchorPane a = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLRelatorioParticipantesPorEdicao.fxml"));
+        AnchorPane a = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLGraficoParticipantesEdicao.fxml"));
         anchorPane.getChildren().setAll(a);
     }
 
     @FXML
     public void handleMenuItemRelMedalhasPorAtleta() throws IOException {
-        AnchorPane a = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLRelatorioMedalhasPorAtleta.fxml"));
+        AnchorPane a = FXMLLoader.load(getClass().getResource("/gerenciamentocorridas/view/FXMLGraficoMedalhasAtleta.fxml"));
         anchorPane.getChildren().setAll(a);
+    }
+
+    @FXML
+    public void handleMenuRelAbrir() throws IOException {
+        AnchorPane a = FXMLLoader.load(getClass().getResource("/sockets/thread/FXMLClienteSistemaGrupos.fxml"));
+        anchorPane.getChildren().setAll(a);
+
     }
 
 }

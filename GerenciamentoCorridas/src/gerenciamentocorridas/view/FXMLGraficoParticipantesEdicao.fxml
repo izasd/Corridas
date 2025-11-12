@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.XYChart?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="gerenciamentocorridas.controller.FXMLGraficoParticipantesEdicaoController">
+    <children>
+        <BarChart fx:id="barChart" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0">
+            <xAxis>
+                <CategoryAxis fx:id="eixoEdicao" label="Edição" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="eixoParticipantes" label="Número de Participantes" />
+            </yAxis>
+        </BarChart>
+    </children>
+</AnchorPane>

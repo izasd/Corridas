@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="GerenciamentoCorridas.jar" size="2073616" download="eager" />
+    <jar href="GerenciamentoCorridas.jar" size="2088748" download="eager" />
     <jar href="lib\asm-3.2.jar" size="43401" download="eager" />
     <jar href="lib\commons-beanutils-1.8.3.jar" size="232019" download="eager" />
     <jar href="lib\commons-collections-3.2.1.jar" size="575389" download="eager" />
@@ -20,7 +20,7 @@
     <jar href="lib\jasperreports-fonts-6.3.1.jar" size="2478097" download="eager" />
     <jar href="lib\jasperreports-javaflow-6.3.1.jar" size="5588071" download="eager" />
     <jar href="lib\poi-3.6-20091214.jar" size="1539291" download="eager" />
-    <jar href="lib\postgresql-42.4.1.jar" size="1045138" download="eager" />
+    <jar href="lib\postgresql-42.2.5.jar" size="825943" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="GerenciamentoCorridas" >
     <param name="requiredFXVersion" value="8.0+"/>

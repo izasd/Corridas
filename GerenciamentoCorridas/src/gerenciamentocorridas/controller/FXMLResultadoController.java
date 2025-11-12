@@ -209,7 +209,7 @@ public class FXMLResultadoController {
             dialogStage.showAndWait();
 
             if (controller.isConfirmado()) {
-                carregarResultados(corridaId); // atualiza a tabela após inserção/edição
+                carregarResultados(corridaId);
             }
 
         } catch (IOException e) {

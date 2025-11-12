@@ -135,48 +135,6 @@ public class FXMLRelatorioHistoricoParticipacoesAtletaController implements Init
         });
     }
 
-<<<<<<< HEAD
-    private void carregarParticipacoes(String nomeAtleta) {
-        listaParticipacoes.clear();
-
-        String sql
-                = "SELECT c.edicao, c.local, c.categoria, c.distancia, r.tempo, r.podio AS colocacao "
-                + "FROM corrida c "
-                + "JOIN corrida_atleta ca ON ca.corrida_id = c.id "
-                + "JOIN atleta a ON a.id = ca.atleta_id "
-                + "LEFT JOIN resultado_corrida r ON r.atleta_id = a.id AND r.corrida_id = c.id "
-                + "WHERE a.nome ILIKE ? "
-                + "ORDER BY c.edicao";
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setString(1, "%" + nomeAtleta + "%");
-
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                String tempo = rs.getString("tempo");
-                Integer colocacao = rs.getObject("colocacao") != null ? rs.getInt("colocacao") : 0;
-
-                Participacao p = new Participacao(
-                        rs.getString("edicao"),
-                        rs.getString("local"),
-                        rs.getString("categoria"),
-                        rs.getDouble("distancia"),
-                        tempo,
-                        colocacao
-                );
-                listaParticipacoes.add(p);
-            }
-
-            tableViewParticipacoes.setItems(listaParticipacoes);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Classe interna simples para representar participações
-=======
->>>>>>> iza
     public static class Participacao {
 
         private final int idAtleta;

@@ -93,6 +93,7 @@ public class FXMLResultadoDialogController {
     @FXML
     private void handleButtonConfirmar() {
         Atleta atletaSelecionado = comboAtleta.getValue();
+
         if (atletaSelecionado == null || txtTempo.getText().isEmpty()) {
             mostrarAlerta("Preencha todos os campos obrigatórios.");
             return;
@@ -101,6 +102,45 @@ public class FXMLResultadoDialogController {
         try {
             Integer posicao = txtPosicao.getText().isEmpty() ? null : Integer.parseInt(txtPosicao.getText());
             String tempo = txtTempo.getText();
+
+            // 1. Verifica se já existe outro atleta na mesma colocação (se preenchida)
+            if (posicao != null) {
+                String sql = "SELECT COUNT(*) FROM resultado_corrida WHERE corrida_id = ? AND podio = ? AND id <> ?";
+                try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                    stmt.setInt(1, corridaId);
+                    stmt.setInt(2, posicao);
+                    stmt.setInt(3, (resultado != null && resultado.getId() != 0) ? resultado.getId() : -1);
+                    ResultSet rs = stmt.executeQuery();
+                    if (rs.next() && rs.getInt(1) > 0) {
+                        mostrarAlerta("Já existe um atleta nessa colocação.");
+                        return;
+                    }
+                }
+            }
+
+            String sqlMinimo
+                    = "SELECT COUNT(*) AS inscritos, c.qtd_min_corr "
+                    + "FROM corrida_atleta ca "
+                    + "JOIN corrida c ON c.id = ca.corrida_id "
+                    + "WHERE ca.corrida_id = ? "
+                    + "GROUP BY c.qtd_min_corr";
+
+            try (PreparedStatement stmt = connection.prepareStatement(sqlMinimo)) {
+                stmt.setInt(1, corridaId);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    int inscritos = rs.getInt("inscritos");
+                    int minimo = rs.getInt("qtd_min_corr");
+
+                    if (inscritos < minimo) {
+                        mostrarAlerta("A corrida ainda não possui o número mínimo de atletas inscritos.");
+                        return;
+                    }
+                } else {
+                    mostrarAlerta("Não foi possível verificar o número de inscritos.");
+                    return;
+                }
+            }
 
             if (resultado == null) {
                 resultado = new Resultado();

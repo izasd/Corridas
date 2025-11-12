@@ -32,9 +32,9 @@ public class FXMLCorridaController {
     @FXML
     private ChoiceBox<String> choiceBGenero;
     @FXML
-    private Spinner<Integer> spnQtdMin;
+    private TextField txtQtdMin;
     @FXML
-    private Spinner<Integer> spnQtdMax;
+    private TextField txtQtdMax;
     @FXML
     private TableView<Corrida> tableCorridas;
     @FXML
@@ -94,10 +94,6 @@ public class FXMLCorridaController {
 
         tableCorridas.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> selecionarItemTableViewCorridas(newValue));
-
-        spnQtdMin.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0));
-        spnQtdMax.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0));
-
     }
 
     public void carregarTableViewCorridas() {
@@ -152,8 +148,8 @@ public class FXMLCorridaController {
             comboBCategoria.setValue(corrida.getCategoria());
             comboBDistancia.setValue(String.valueOf(corrida.getDistancia()));
             choiceBGenero.setValue(corrida.getGenero());
-            spnQtdMin.getValueFactory().setValue(corrida.getQtdMinCorr());
-            spnQtdMax.getValueFactory().setValue(corrida.getQtdMaxCorr());
+            txtQtdMin.setText(String.valueOf(corrida.getQtdMinCorr()));
+            txtQtdMax.setText(String.valueOf(corrida.getQtdMaxCorr()));
             listaAtletasCorrida.setAll(corrida.getAtletas());
 
         } else {
@@ -162,9 +158,8 @@ public class FXMLCorridaController {
             comboBCategoria.setValue(null);
             comboBDistancia.setValue(null);
             choiceBGenero.setValue(null);
-            spnQtdMin.getValueFactory().setValue(0);
-            spnQtdMax.getValueFactory().setValue(0);
-
+            txtQtdMin.clear();
+            txtQtdMax.clear();
             listaAtletasCorrida.clear();
         }
     }
@@ -192,8 +187,13 @@ public class FXMLCorridaController {
         corrida.setCategoria(comboBCategoria.getValue());
         corrida.setDistancia(Double.parseDouble(comboBDistancia.getValue()));
         corrida.setGenero(choiceBGenero.getValue());
-        corrida.setQtdMinCorr(spnQtdMin.getValue());
-        corrida.setQtdMaxCorr(spnQtdMax.getValue());
+        Integer qtdMin = validarInteiro(txtQtdMin, "Quantidade Mínima");
+        Integer qtdMax = validarInteiro(txtQtdMax, "Quantidade Máxima");
+        if (qtdMin == null || qtdMax == null) {
+            return;
+        }
+        corrida.setQtdMinCorr(qtdMin);
+        corrida.setQtdMaxCorr(qtdMax);
         corrida.setAtletas(new ArrayList<>(listaAtletasCorrida));
 
         if (corridaDAO.inserir(corrida)) {
@@ -215,8 +215,13 @@ public class FXMLCorridaController {
             corrida.setCategoria(comboBCategoria.getValue());
             corrida.setDistancia(Double.parseDouble(comboBDistancia.getValue()));
             corrida.setGenero(choiceBGenero.getValue());
-            corrida.setQtdMinCorr(spnQtdMin.getValue());
-            corrida.setQtdMaxCorr(spnQtdMax.getValue());
+            Integer qtdMin = validarInteiro(txtQtdMin, "Quantidade Mínima");
+            Integer qtdMax = validarInteiro(txtQtdMax, "Quantidade Máxima");
+            if (qtdMin == null || qtdMax == null) {
+                return;
+            }
+            corrida.setQtdMinCorr(qtdMin);
+            corrida.setQtdMaxCorr(qtdMax);
             corrida.setAtletas(tableViewAtletas.getSelectionModel().getSelectedItems());
 
             corridaDAO.alterar(corrida);
@@ -236,9 +241,48 @@ public class FXMLCorridaController {
     @FXML
     public void handleButtonAdicionarAtleta(ActionEvent event) {
         Atleta selecionado = comboBoxAtletas.getValue();
-        if (selecionado != null && !listaAtletasCorrida.contains(selecionado)) {
-            listaAtletasCorrida.add(selecionado);
+        Corrida corridaSelecionada = tableCorridas.getSelectionModel().getSelectedItem();
+
+        if (selecionado == null || corridaSelecionada == null) {
+            mostrarAlerta("Erro", "Selecione um atleta e uma corrida.");
+            return;
         }
+
+        // 1. Já está inscrito?
+        if (listaAtletasCorrida.contains(selecionado)
+                || corridaDAO.atletaJaInscrito(selecionado.getId(), corridaSelecionada.getId())) {
+            mostrarAlerta("Regras de Inscrição", "Este atleta já está inscrito nesta corrida.");
+            return;
+        }
+
+        // 2. Máximo 3 atletas do mesmo país
+        long mesmosPais = listaAtletasCorrida.stream()
+                .filter(a -> a.getPais().equalsIgnoreCase(selecionado.getPais()))
+                .count();
+        if (mesmosPais >= 3) {
+            mostrarAlerta("Regras de Inscrição", "Já existem 3 atletas deste país inscritos.");
+            return;
+        }
+
+        // 3. Gênero correspondente
+        String generoCorrida = choiceBGenero.getValue();
+        if (!selecionado.getGenero().equalsIgnoreCase(generoCorrida)) {
+            mostrarAlerta("Regras de Inscrição", "O gênero do atleta não corresponde ao da corrida.");
+            return;
+        }
+
+        // 4. Limite de corredores
+        Integer limite = validarInteiro(txtQtdMax, "Quantidade Máxima");
+        if (limite == null) {
+            return;
+        }
+        
+        if (listaAtletasCorrida.size() >= limite) {
+            mostrarAlerta("Regras de Inscrição", "Limite de atletas para esta corrida atingido.");
+            return;
+        }
+
+        listaAtletasCorrida.add(selecionado);
     }
 
     @FXML
@@ -246,6 +290,27 @@ public class FXMLCorridaController {
         ObservableList<Atleta> selecionados = tableViewAtletas.getSelectionModel().getSelectedItems();
         if (!selecionados.isEmpty()) {
             listaAtletasCorrida.removeAll(selecionados);
+        }
+    }
+
+    private void mostrarAlerta(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+    private Integer validarInteiro(TextField campo, String nomeCampo) {
+        try {
+            return Integer.parseInt(campo.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro de validação");
+            alert.setHeaderText(null);
+            alert.setContentText("O campo \"" + nomeCampo + "\" deve conter um número inteiro válido.");
+            alert.showAndWait();
+            return null;
         }
     }
 
